@@ -6,22 +6,30 @@ import { initializeEmptyInstance } from '../src/server/initialize-instance.js';
 import { runScheduledMaintenance } from '../src/server/scheduled-maintenance.js';
 import { GenerationTextRetention } from '../src/server/generation-text-retention.js';
 import { initializeFromBackup } from '../src/server/initialize-from-backup.js';
+import { readRuntimeConfiguration } from '../src/server/runtime-config-input.js';
 
 async function main() {
 const [job,...args]=process.argv.slice(2),flag=name=>{const index=args.indexOf(name);return index<0?undefined:args[index+1];};
 if(!['initialize','initialize-from-backup','backup','retention-preview','retention-apply','generation-text-preview','generation-text-apply',
   'restore','scheduled-backup','scheduled-retention','scheduled-generation-text'].includes(job))throw new Error('Trabajo no permitido.');
-if(!process.env.FORX_CONFIG_PATH)throw new Error('Define FORX_CONFIG_PATH.');
 const readJson=async path=>{if(!path||(await stat(path)).size>64*1024*1024)throw new Error('Archivo requerido de hasta 64 MB.');return JSON.parse(await readFile(path,'utf8'));};
-const raw=await readJson(process.env.FORX_CONFIG_PATH);
+const raw=await readRuntimeConfiguration();
 const runtime=await createCloudRuntime(raw,{allowUninitialized:['initialize','initialize-from-backup','restore'].includes(job),connectRecipeAI:false});
 try {
   let result;
   if(job==='initialize')result=await initializeEmptyInstance(runtime,{adminUid:flag('--admin'),confirmTarget:flag('--confirm')});
   if(job==='initialize-from-backup') {
-    const path=flag('--backup');
-    if(!path||(await stat(path)).size>64*1024*1024)throw new Error('Respaldo requerido de hasta 64 MB.');
-    result=await initializeFromBackup(runtime,await readFile(path,'utf8'),{adminUid:flag('--admin'),confirmTarget:flag('--confirm'),confirmChecksum:flag('--checksum')});
+    const path=flag('--backup');let source;
+    if(path===`gs://${runtime.config.backupsBucket}/bootstrap/initial-data.json`) {
+      const file=runtime.backupsBucket.file('bootstrap/initial-data.json');
+      const metadata=(await file.getMetadata())[0];
+      if(!/^\d+$/.test(String(metadata.generation))||Number(metadata.size)>64*1024*1024)throw new Error('Respaldo de carga inválido.');
+      source=(await runtime.backupsBucket.file('bootstrap/initial-data.json',{generation:metadata.generation}).download())[0].toString('utf8');
+    } else {
+      if(!path||path.startsWith('gs:')||(await stat(path)).size>64*1024*1024)throw new Error('Respaldo requerido de hasta 64 MB en el destino autorizado.');
+      source=await readFile(path,'utf8');
+    }
+    result=await initializeFromBackup(runtime,source,{adminUid:flag('--admin'),confirmTarget:flag('--confirm'),confirmChecksum:flag('--checksum')});
   }
   if(job==='backup')result=await createServerBackup(runtime);
   if(job==='retention-preview')result=await new OriginalRetention(runtime).preview();

@@ -33,7 +33,8 @@ El cambio se prepara en `codex/forx-integrated-production`, sin publicar desde e
 
 `Dockerfile` prepara el API Node 24 con dependencias de producción y usuario sin
 privilegios. No copia archivos de entorno, respaldos, credenciales ni configuración
-real. Montar la configuración aprobada en `/etc/forx/deployment.json`. La identidad
+real. Proporcionar la configuración no secreta con `FORX_CONFIG_JSON` o montar
+un archivo y definir `FORX_CONFIG_PATH`; nunca ambos. La identidad
 administrada, permisos, secreto de IA y activación de recursos se configuran fuera
 de la imagen. El API y los trabajos pueden usar la misma imagen, con identidades
 y comandos diferentes.
@@ -93,6 +94,12 @@ y límites aprobados; la imagen y los trabajos no incluyen una clave.
 ```text
 npm run job:production -- initialize-from-backup --backup /ruta/privada/respaldo-v3.json --admin UID --confirm PROYECTO/BASE --checksum CHECKSUM
 ```
+
+En un trabajo administrado puede usarse exclusivamente
+`gs://BUCKET_DE_RESPALDOS/bootstrap/initial-data.json` como fuente de esa carga.
+Se comprueba tamaño y se descarga una generación concreta antes de validar checksum.
+El permiso de lectura del inicializador debe limitarse a ese objeto; no dar acceso
+al bucket de compilación ni incorporar el respaldo a una imagen o al repositorio.
 
 4. Probar Google, XML válido/ajeno, precio, receta, menú real, exportación,
    reapertura desde otro equipo, respaldo y recuperación. Ejecutar backend,
