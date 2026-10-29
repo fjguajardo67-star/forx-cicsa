@@ -1,0 +1,11 @@
+{
+  "indexes": [
+    {"collectionGroup": "_forx_jobs", "queryScope": "COLLECTION", "fields": [
+      {"fieldPath": "kind", "order": "ASCENDING"},
+      {"fieldPath": "state", "order": "ASCENDING"}
+    ]}
+  ],
+  "fieldOverrides": [
+    {"collectionGroup": "_forx_limits", "fieldPath": "expiresAt", "ttl": true, "indexes": []}
+  ]
+}

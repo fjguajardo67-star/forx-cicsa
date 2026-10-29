@@ -1,0 +1,8 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Production reads/writes go through the API with current server membership.
+    // No stale custom claim permits a bypass through the client SDK.
+    match /{document=**} { allow read, write: if false; }
+  }
+}

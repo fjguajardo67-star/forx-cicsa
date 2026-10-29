@@ -1,0 +1,9 @@
+steps:
+  - name: gcr.io/cloud-builders/docker
+    args: ['build', '-t', '${_IMAGE}', '.']
+images: ['${_IMAGE}']
+options:
+  logging: GCS_ONLY
+logsBucket: gs://forx-v2-cicsa-prod-builds/logs
+substitutions:
+  _IMAGE: us-central1-docker.pkg.dev/forx-v2-cicsa-prod/forx/backend:pilot

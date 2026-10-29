@@ -1,0 +1,172 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-04T03:01:58.100Z",
+  "title": "Design System: MiDespensa",
+  "extensions": {
+    "colorMeta": {
+      "light-paper": {"role":"neutral","displayName":"Lienzo Claro"},
+      "light-paper-strong": {"role":"neutral","displayName":"Panel Blanco"},
+      "light-paper-muted": {"role":"neutral","displayName":"Carril Claro"},
+      "light-ink": {"role":"neutral","displayName":"Tinta Marina"},
+      "light-ink-soft": {"role":"neutral","displayName":"Tinta Secundaria Clara"},
+      "light-line": {"role":"neutral","displayName":"Divisor Claro"},
+      "light-line-dark": {"role":"neutral","displayName":"Borde Firme Claro"},
+      "light-sage-selection": {"role":"secondary","displayName":"Selección Clara"},
+      "light-focus": {"role":"tertiary","displayName":"Turquesa Legible"},
+      "light-warning": {"role":"tertiary","displayName":"Advertencia Clara"},
+      "light-conflict-rust": {"role":"tertiary","displayName":"Conflicto Claro"},
+      "light-conflict-soft": {"role":"tertiary","displayName":"Fondo de Conflicto Claro"},
+      "light-success": {"role":"secondary","displayName":"Verde Validado Claro"},
+      "light-field": {"role":"neutral","displayName":"Campo Blanco"},
+      "light-surface-hover": {"role":"neutral","displayName":"Hover Frío"},
+      "light-badge": {"role":"neutral","displayName":"Insignia Clara"},
+      "light-success-soft": {"role":"secondary","displayName":"Fondo Positivo Claro"},
+      "light-success-ink": {"role":"secondary","displayName":"Tinta Positiva Clara"},
+      "light-warning-soft": {"role":"tertiary","displayName":"Fondo Provisional Claro"},
+      "light-warning-ink": {"role":"tertiary","displayName":"Tinta Provisional Clara"},
+      "light-error-ink": {"role":"tertiary","displayName":"Tinta de Error Clara"},
+      "paper": { "role": "neutral", "displayName": "Lienzo Profundo", "canonical": "#071a3d", "tonalRamp": ["oklch(12% 0.040 258)", "oklch(20% 0.050 258)", "oklch(29% 0.055 258)", "oklch(39% 0.050 258)", "oklch(52% 0.040 258)", "oklch(66% 0.030 258)", "oklch(82% 0.018 258)", "oklch(95% 0.006 258)"] },
+      "paper-strong": { "role": "neutral", "displayName": "Panel Operativo", "canonical": "#0b2858", "tonalRamp": ["oklch(13% 0.045 258)", "oklch(22% 0.060 258)", "oklch(31% 0.064 258)", "oklch(42% 0.055 258)", "oklch(55% 0.043 258)", "oklch(69% 0.030 258)", "oklch(84% 0.016 258)", "oklch(96% 0.005 258)"] },
+      "paper-muted": { "role": "neutral", "displayName": "Carril Nocturno", "canonical": "#061531", "tonalRamp": ["oklch(10% 0.034 258)", "oklch(18% 0.044 258)", "oklch(27% 0.048 258)", "oklch(38% 0.044 258)", "oklch(51% 0.036 258)", "oklch(65% 0.026 258)", "oklch(82% 0.014 258)", "oklch(95% 0.005 258)"] },
+      "spruce": { "role": "primary", "displayName": "Azul Noche FORX", "canonical": "#020f27", "tonalRamp": ["oklch(8% 0.032 258)", "oklch(16% 0.042 258)", "oklch(27% 0.048 258)", "oklch(39% 0.045 258)", "oklch(52% 0.036 258)", "oklch(67% 0.025 258)", "oklch(83% 0.013 258)", "oklch(96% 0.004 258)"] },
+      "ink": { "role": "neutral", "displayName": "Tinta Principal", "canonical": "#f3f7ff", "tonalRamp": ["oklch(18% 0.018 258)", "oklch(30% 0.018 258)", "oklch(43% 0.016 258)", "oklch(57% 0.014 258)", "oklch(70% 0.012 258)", "oklch(81% 0.010 258)", "oklch(91% 0.007 258)", "oklch(98% 0.003 258)"] },
+      "ink-soft": { "role": "neutral", "displayName": "Tinta Secundaria", "canonical": "#9eb0cf", "tonalRamp": ["oklch(18% 0.025 258)", "oklch(30% 0.028 258)", "oklch(43% 0.028 258)", "oklch(57% 0.026 258)", "oklch(70% 0.022 258)", "oklch(81% 0.016 258)", "oklch(91% 0.009 258)", "oklch(98% 0.003 258)"] },
+      "line": { "role": "neutral", "displayName": "Hairline Azul", "canonical": "#1b4278", "tonalRamp": ["oklch(14% 0.045 258)", "oklch(24% 0.060 258)", "oklch(35% 0.066 258)", "oklch(47% 0.060 258)", "oklch(60% 0.048 258)", "oklch(72% 0.034 258)", "oklch(85% 0.018 258)", "oklch(96% 0.006 258)"] },
+      "line-dark": { "role": "neutral", "displayName": "Hairline Firme", "canonical": "#31578a", "tonalRamp": ["oklch(16% 0.048 258)", "oklch(27% 0.063 258)", "oklch(39% 0.068 258)", "oklch(51% 0.061 258)", "oklch(63% 0.048 258)", "oklch(75% 0.034 258)", "oklch(87% 0.018 258)", "oklch(96% 0.006 258)"] },
+      "citrus": { "role": "primary", "displayName": "Ámbar de Decisión", "canonical": "#ffc246", "tonalRamp": ["oklch(20% 0.070 80)", "oklch(32% 0.105 80)", "oklch(44% 0.140 80)", "oklch(57% 0.165 80)", "oklch(69% 0.175 80)", "oklch(79% 0.160 80)", "oklch(88% 0.105 80)", "oklch(96% 0.045 80)"] },
+      "citrus-hover": { "role": "primary", "displayName": "Ámbar Activo", "canonical": "#ffad28", "tonalRamp": ["oklch(18% 0.075 68)", "oklch(30% 0.110 68)", "oklch(43% 0.150 68)", "oklch(56% 0.180 68)", "oklch(68% 0.190 68)", "oklch(78% 0.170 68)", "oklch(88% 0.110 68)", "oklch(96% 0.045 68)"] },
+      "sage-selection": { "role": "secondary", "displayName": "Azul de Selección", "canonical": "#0b365f", "tonalRamp": ["oklch(13% 0.040 248)", "oklch(23% 0.055 248)", "oklch(34% 0.060 248)", "oklch(46% 0.055 248)", "oklch(59% 0.045 248)", "oklch(72% 0.032 248)", "oklch(85% 0.017 248)", "oklch(96% 0.005 248)"] },
+      "conflict-rust": { "role": "tertiary", "displayName": "Coral de Conflicto", "canonical": "#ff6854", "tonalRamp": ["oklch(18% 0.070 30)", "oklch(30% 0.105 30)", "oklch(43% 0.145 30)", "oklch(56% 0.175 30)", "oklch(68% 0.170 30)", "oklch(79% 0.140 30)", "oklch(89% 0.085 30)", "oklch(96% 0.035 30)"] },
+      "conflict-soft": { "role": "tertiary", "displayName": "Coral Profundo", "canonical": "#3b2234", "tonalRamp": ["oklch(14% 0.040 340)", "oklch(25% 0.055 340)", "oklch(37% 0.060 340)", "oklch(49% 0.055 340)", "oklch(62% 0.045 340)", "oklch(74% 0.032 340)", "oklch(86% 0.017 340)", "oklch(96% 0.005 340)"] },
+      "success": { "role": "secondary", "displayName": "Verde Validado", "canonical": "#16c586", "tonalRamp": ["oklch(16% 0.065 155)", "oklch(28% 0.095 155)", "oklch(40% 0.125 155)", "oklch(53% 0.150 155)", "oklch(65% 0.145 155)", "oklch(77% 0.120 155)", "oklch(88% 0.072 155)", "oklch(96% 0.030 155)"] },
+      "warning": { "role": "tertiary", "displayName": "Ámbar Provisional", "canonical": "#ffc246", "tonalRamp": ["oklch(20% 0.070 80)", "oklch(32% 0.105 80)", "oklch(44% 0.140 80)", "oklch(57% 0.165 80)", "oklch(69% 0.175 80)", "oklch(79% 0.160 80)", "oklch(88% 0.105 80)", "oklch(96% 0.045 80)"] },
+      "focus": { "role": "tertiary", "displayName": "Turquesa de Foco", "canonical": "#16cde5", "tonalRamp": ["oklch(16% 0.060 210)", "oklch(28% 0.090 210)", "oklch(41% 0.120 210)", "oklch(54% 0.145 210)", "oklch(66% 0.140 210)", "oklch(78% 0.110 210)", "oklch(89% 0.065 210)", "oklch(96% 0.028 210)"] },
+      "field": { "role": "neutral", "displayName": "Campo Azul", "canonical": "#081d43", "tonalRamp": ["oklch(12% 0.040 258)", "oklch(21% 0.052 258)", "oklch(31% 0.056 258)", "oklch(43% 0.050 258)", "oklch(56% 0.040 258)", "oklch(69% 0.028 258)", "oklch(84% 0.015 258)", "oklch(96% 0.005 258)"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Rótulo condensado", "purpose": "Títulos de página, wordmark y encabezados de tabla." },
+      "headline": { "displayName": "Encabezado de ficha", "purpose": "Títulos de paneles de evidencia." },
+      "title": { "displayName": "Título de sección", "purpose": "Secciones y formularios." },
+      "body": { "displayName": "Lectura operativa", "purpose": "Tablas, navegación, búsquedas y explicaciones." },
+      "label": { "displayName": "Etiqueta de acceso", "purpose": "Metadatos, chips, ayudas y estados compactos." }
+    },
+    "shadows": [
+      { "name": "toast-ambient-light", "value": "0 14px 34px rgba(11, 27, 58, .16)", "purpose": "Elevación ambiental de notificaciones sobre el lienzo claro; conservan texto blanco y fondo oscuro." },
+      { "name": "focus-ring-light", "value": "0 0 0 2px color-mix(in srgb, #006c80 18%, transparent)", "purpose": "Anillo del campo activo sobre superficies claras." },
+      { "name": "row-focus-light", "value": "inset 3px 0 #006c80", "purpose": "Marca de teclado de fila en la variante clara." },
+      { "name": "toast-ambient", "value": "0 14px 34px rgba(0, 8, 24, .32)", "purpose": "Separar confirmaciones flotantes del libro de trabajo." },
+      { "name": "focus-ring", "value": "0 0 0 2px color-mix(in srgb, #16cde5 18%, transparent)", "purpose": "Reforzar el borde del campo con foco de teclado." },
+      { "name": "row-focus", "value": "inset 3px 0 #16cde5", "purpose": "Marcar la fila enfocada sin alterar su geometría." }
+    ],
+    "motion": [
+      { "name": "provenance-thread", "value": "550ms cubic-bezier(.16, 1, .3, 1)", "purpose": "Dibujar una vez la hebra entre las cuatro capas de evidencia." },
+      { "name": "state-color", "value": "180ms ease-out", "purpose": "Cambios de fondo en filas y estados interactivos." },
+      { "name": "toast-enter", "value": "220ms cubic-bezier(.16, 1, .3, 1)", "purpose": "Entrada corta de confirmaciones desde 8px abajo." }
+    ],
+    "breakpoints": [
+      { "name": "compact-sidebar", "value": "1180px" },
+      { "name": "stacked-workspace", "value": "900px" },
+      { "name": "single-column", "value": "620px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Theme Toggle — Light",
+      "kind": "button",
+      "refersTo": "theme-toggle-light",
+      "description": "Control compartido de tema después de Consultar catálogo. A 1180px o menos muestra solo icono, conserva 44px, aria-label y title. theme.js sincroniza el destino y guarda forx-v2-theme en localStorage con respaldo sessionStorage; oscuro sin preferencia guardada. Esta muestra representa la apariencia, no ejecuta la persistencia.",
+      "html": "<button class=\"ds-theme-light\" type=\"button\" aria-label=\"Cambiar a tema oscuro\" title=\"Cambiar a tema oscuro\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\" focusable=\"false\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"12\" r=\"8\"/><path d=\"M12 4a8 8 0 0 1 0 16Z\" fill=\"currentColor\" stroke=\"none\"/></svg><span>Cambiar a tema oscuro</span></button>",
+      "css": ".ds-theme-light { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 1px solid var(--line-dark, #7488a6); border-radius: 7px; background: var(--paper-strong, #ffffff); color: var(--ink, #0b1b3a); padding: 0 14px; font: 700 12px 'IBM Plex Sans Variable', ui-sans-serif, sans-serif; white-space: nowrap; cursor: pointer; } .ds-theme-light svg { width: 20px; height: 20px; flex: 0 0 auto; } .ds-theme-light:hover { background: var(--surface-hover, #e2ebf8); border-color: var(--focus, #006c80); } .ds-theme-light:focus-visible { outline: 3px solid color-mix(in srgb, var(--focus, #006c80) 82%, white); outline-offset: 2px; } @media (max-width: 1180px) { .ds-theme-light { width: 44px; padding: 0; } .ds-theme-light span { display: none; } }"
+    },
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Acción principal de la vista o decisión de validación.",
+      "html": "<button class=\"ds-btn-primary\">Validar precio real</button>",
+      "css": ".ds-btn-primary { min-height: 40px; border: 1px solid var(--citrus); border-radius: 7px; background: var(--citrus); color: #201704; padding: 0 14px; font: 700 12px 'IBM Plex Sans Variable', ui-sans-serif, sans-serif; cursor: pointer; } .ds-btn-primary:hover { background: var(--citrus-hover); border-color: var(--citrus-hover); } .ds-btn-primary:focus-visible { outline: 3px solid color-mix(in srgb, var(--focus) 82%, white); outline-offset: 2px; } .ds-btn-primary:active { transform: translateY(1px); }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Acción secundaria o reversible con presencia contenida.",
+      "html": "<button class=\"ds-btn-secondary\">Rechazar</button>",
+      "css": ".ds-btn-secondary { min-height: 40px; border: 1px solid var(--line-dark); border-radius: 7px; background: var(--paper-strong); color: var(--ink); padding: 0 14px; font: 700 12px 'IBM Plex Sans Variable', ui-sans-serif, sans-serif; cursor: pointer; } .ds-btn-secondary:hover { background: #12356d; border-color: var(--focus); } .ds-btn-secondary:focus-visible { outline: 3px solid color-mix(in srgb, var(--focus) 82%, white); outline-offset: 2px; } .ds-btn-secondary:active { background: var(--paper-muted); }"
+    },
+    {
+      "name": "Search Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Búsqueda de catálogo o cola con icono y borde firme.",
+      "html": "<label class=\"ds-search\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"11\" cy=\"11\" r=\"7\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"m20 20-4-4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"/></svg><input type=\"search\" placeholder=\"Buscar en la cola\"></label>",
+      "css": ".ds-search { height: 42px; display: flex; align-items: center; gap: 9px; padding: 0 12px; border: 1px solid var(--line-dark); border-radius: 7px; background: #081d43; color: var(--ink-soft); } .ds-search svg { width: 20px; height: 20px; flex: 0 0 auto; } .ds-search input { width: 100%; min-width: 0; border: 0; outline: 0; background: transparent; color: var(--ink); font: 400 13px 'IBM Plex Sans Variable', ui-sans-serif, sans-serif; } .ds-search:focus-within { border-color: var(--focus); box-shadow: 0 0 0 2px color-mix(in srgb, var(--focus) 18%, transparent); }"
+    },
+    {
+      "name": "Active Navigation Item",
+      "kind": "nav",
+      "description": "Índice activo dentro de la navegación azul noche.",
+      "html": "<nav class=\"ds-nav\"><button class=\"ds-nav-item\" aria-current=\"page\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M4 6h16M4 12h16M4 18h16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"/></svg><span>Revisión</span></button></nav>",
+      "css": ".ds-nav { width: 190px; padding: 10px 0; background: var(--spruce); } .ds-nav-item { position: relative; width: 100%; min-height: 48px; display: flex; align-items: center; gap: 13px; border: 0; padding: 0 18px; background: rgba(16,198,223,.13); color: #fff; font: 700 13px 'IBM Plex Sans Variable', ui-sans-serif, sans-serif; text-align: left; cursor: pointer; } .ds-nav-item::before { content: ''; position: absolute; inset: 0 auto 0 0; width: 4px; background: var(--focus); } .ds-nav-item svg { width: 20px; height: 20px; } .ds-nav-item:hover { background: rgba(16,198,223,.18); } .ds-nav-item:focus-visible { outline: 3px solid color-mix(in srgb, var(--focus) 82%, white); outline-offset: -3px; }"
+    },
+    {
+      "name": "Validated Chip",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "Estado compacto positivo con texto explícito.",
+      "html": "<span class=\"ds-chip-good\">Validado</span>",
+      "css": ".ds-chip-good { min-height: 24px; display: inline-flex; align-items: center; padding: 0 7px; border-radius: 5px; background: #0c3e3c; color: #91ecc9; font: 700 9px 'IBM Plex Sans Variable', ui-sans-serif, sans-serif; }"
+    },
+    {
+      "name": "Evidence Step",
+      "kind": "card",
+      "description": "Una capa numerada dentro de la secuencia de procedencia.",
+      "html": "<section class=\"ds-evidence\"><span class=\"ds-evidence-index\">3</span><div class=\"ds-evidence-head\"><strong>Ingrediente maestro</strong><small>Sugerencia del sistema</small></div><dl><dt>Nombre</dt><dd>Jitomate saladet</dd><dt>Merma estándar</dt><dd>8%</dd><dt>Rendimiento</dt><dd>92%</dd></dl></section>",
+      "css": ".ds-evidence { position: relative; width: 360px; padding: 13px 12px 12px 50px; border: 1px solid var(--line); border-radius: 9px; background: rgba(11,40,88,.88); color: var(--ink); font-family: 'IBM Plex Sans Variable', ui-sans-serif, sans-serif; } .ds-evidence-index { position: absolute; left: 9px; top: 11px; width: 25px; height: 25px; display: grid; place-items: center; border-radius: 50%; background: #15527f; color: #fff; font-size: 11px; font-weight: 800; } .ds-evidence-head { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 10px; font-size: 12px; } .ds-evidence-head small { color: var(--ink-soft); font-size: 9px; } .ds-evidence dl { display: grid; grid-template-columns: .7fr 1.3fr; margin: 0; border: 1px solid var(--line); background: #071c41; font-size: 10px; } .ds-evidence dt, .ds-evidence dd { margin: 0; padding: 5px 7px; border-bottom: 1px solid var(--line); } .ds-evidence dt { color: var(--ink-soft); } .ds-evidence:focus-within { border-color: var(--focus); }"
+    },
+    {
+      "name": "Selected Review Row",
+      "kind": "custom",
+      "description": "Registro seleccionado con estado textual y fondo azul medio.",
+      "html": "<div class=\"ds-review-row\" tabindex=\"0\"><span class=\"ds-review-status\">Con sugerencia</span><strong>JITOMATE SALADET CAJA 12 KG</strong><span>Distribuidora La Central</span><span>$384.00</span></div>",
+      "css": ".ds-review-row { min-height: 76px; display: grid; grid-template-columns: 120px 1.4fr 1fr 80px; align-items: center; gap: 14px; padding: 0 10px; border-bottom: 1px solid var(--line); background: var(--sage-selection); color: var(--ink); font: 400 13px 'IBM Plex Sans Variable', ui-sans-serif, sans-serif; } .ds-review-row strong { font-weight: 670; } .ds-review-status { display: inline-flex; align-items: center; gap: 6px; font-weight: 700; } .ds-review-status::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--success); } .ds-review-row:hover { background: #0d466f; } .ds-review-row:focus-visible { outline: none; box-shadow: inset 3px 0 var(--focus); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "La Consola FORX",
+    "overview": "MiDespensa continúa el lenguaje visual de la aplicación FORX: un lienzo azul marino profundo, paneles azules contiguos, bordes fríos y acentos turquesa, ámbar y naranja. La interfaz sigue siendo sobria, técnica y legible; la procedencia de cada dato se presenta como una secuencia visible, no como una automatización opaca.\n\nLa densidad es intencional. Tablas, pestañas de índice y fichas apiladas permiten comparar evidencia, interpretación y costo en el mismo campo visual. El amarillo queda reservado para decisiones primarias, el turquesa orienta navegación y foco, y el coral aparece únicamente cuando existe conflicto o una acción destructiva.\n\nLa variante clara extiende este mismo mundo: lienzo frío, paneles blancos y tinta marina, con estados más oscuros sobre fondos suaves. Conserva densidad, tipografía, geometría, navegación marina y logo; el tema oscuro sigue siendo el predeterminado cuando no existe una preferencia guardada.",
+    "keyCharacteristics": [
+      "Lienzo azul marino con paneles azules y navegación casi negra.",
+      "Variante clara de superficies y estados, con la misma navegación marina y jerarquía operativa.",
+      "Retícula operativa, hairlines fríos y controles de radio contenido.",
+      "Jerarquía tipográfica compacta con encabezados condensados y numerales tabulares.",
+      "Estados explícitos que combinan texto, color y marcadores.",
+      "Hebra de procedencia numerada para original → producto → ingrediente → precio real.",
+      "Logo MiDespensa con X naranja y amarilla como firma de producto."
+    ],
+    "rules": [
+      { "name": "The Same Console Rule", "body": "El tema claro cambia superficies, tintas y estados; conserva la navegación marina, el logo, el ámbar de acción y la geometría de trabajo.", "section": "colors" },
+      { "name": "The Amber Decision Rule", "body": "El ámbar identifica la acción principal; el turquesa se reserva para foco y navegación activa. Ninguno se usa como relleno decorativo de una sección completa.", "section": "colors" },
+      { "name": "The Conflict Is Coral Rule", "body": "El coral se reserva para conflicto, error o peligro y siempre aparece acompañado de texto o iconografía comprensible.", "section": "colors" },
+      { "name": "The Cabinet Label Rule", "body": "Usa la familia condensada solo para títulos, wordmark y encabezados de tabla; la lectura operativa larga permanece en la sans funcional.", "section": "typography" },
+      { "name": "The Stable Numbers Rule", "body": "Montos, cantidades, métricas e identificadores usan numerales tabulares para que las comparaciones verticales no salten.", "section": "typography" },
+      { "name": "The Evidence Beside Queue Rule", "body": "En escritorio, la cola y la procedencia conviven; en pantallas estrechas se apilan sin simplificar ni esconder la evidencia.", "section": "layout" },
+      { "name": "The Flat Ledger Rule", "body": "Las superficies de trabajo permanecen planas; usa hairlines y cambios de hoja antes que sombras.", "section": "elevation" },
+      { "name": "The Contained Radius Rule", "body": "Nunca incrementes el radio para fabricar tarjetas blandas: 9px es el límite de las superficies recurrentes y 50% pertenece solo a marcadores verdaderamente circulares.", "section": "shapes" }
+    ],
+    "dos": [
+      "Do conserva la secuencia original → producto → ingrediente → precio real cuando una decisión dependa de evidencia.",
+      "Do usa divisores de 1px y cambios tonales para estructurar información densa.",
+      "Do reserva el ámbar para una única decisión primaria y el turquesa para foco o navegación activa.",
+      "Do presenta estado con texto, marcador e iconografía cuando corresponda.",
+      "Do mantiene las tablas desplazables en móvil antes que eliminar columnas de procedencia."
+    ],
+    "donts": [
+      "Don't conviertas el catálogo en un tablero de tarjetas independientes o métricas decorativas.",
+      "Don't uses sombras en fichas, tablas o paneles estáticos.",
+      "Don't uses coral para decoración, énfasis neutral o acciones positivas.",
+      "Don't redondees contenedores recurrentes por encima de 9px ni uses píldoras para controles que no sean marcadores compactos.",
+      "Don't ocultes merma, rendimiento o la fórmula que produce el precio real."
+    ]
+  }
+}

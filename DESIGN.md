@@ -1,428 +1,325 @@
 ---
-name: ForX
-description: Sistema de menús para comedor industrial — marino profundo, escala cálida reservada al estado.
+name: MiDespensa
+description: La consola de insumos de FORX, con variantes oscura y clara del mismo sistema operativo.
 colors:
-  # Marca — tomados del vector del logotipo, fuente autoritativa
-  brand-navy: "#0C255C"
-  brand-ramp-red: "#D83021"
-  brand-ramp-orange: "#EA7630"
-  brand-ramp-amber: "#F9C043"
-  sparx-accent: "#E95B2D"
-  # Superficies oscuras (tema primario)
-  dark-bg: "#05122F"
-  dark-surface: "#0A1F4E"
-  dark-surface-2: "#062350"
-  dark-sidebar: "#000C22"
-  dark-border: "#123063"
-  dark-text: "#E9F0FC"
-  dark-text-2: "#A9BCDD"
-  dark-text-3: "#7C8FB4"
-  # Superficies claras
-  light-bg: "#F3F6FC"
-  light-surface: "#FFFFFF"
-  light-surface-2: "#E9EFFA"
-  light-border: "#D3DCEC"
-  light-text: "#0B1B3A"
-  light-text-2: "#3C4E73"
-  light-text-3: "#5F6E8B"
-  # Acento interactivo — frío a propósito, nunca significa estado
-  accent-light: "#0E9FB0"
-  accent-dark: "#16C0D2"
-  on-accent: "#05122F"
-  # Rellenos de estado = la rampa de la marca
-  status-ok: "#12A863"
-  status-warn: "#F9C043"
-  status-caution: "#EA7630"
-  status-crit: "#D83021"
-  on-warm: "#2A1206"
-  on-crit: "#FFFFFF"
-  # Tintas de estado para TEXTO, una por tema
-  ink-ok-dark: "#2ABF7B"
-  ink-warn-dark: "#F9C043"
-  ink-caution-dark: "#EA7630"
-  ink-crit-dark: "#FF6B52"
-  ink-ok-light: "#0C6339"
-  ink-warn-light: "#6E4E00"
-  ink-caution-light: "#8F3D00"
-  ink-crit-light: "#A81F16"
+  paper: "#071a3d"
+  paper-strong: "#0b2858"
+  paper-muted: "#061531"
+  spruce: "#020f27"
+  ink: "#f3f7ff"
+  ink-soft: "#9eb0cf"
+  line: "#1b4278"
+  line-dark: "#31578a"
+  citrus: "#ffc246"
+  citrus-hover: "#ffad28"
+  sage-selection: "#0b365f"
+  conflict-rust: "#ff6854"
+  conflict-soft: "#3b2234"
+  success: "#16c586"
+  warning: "#ffc246"
+  focus: "#16cde5"
+  field: "#081d43"
+  light-paper: "#f3f6fc"
+  light-paper-strong: "#ffffff"
+  light-paper-muted: "#e9effa"
+  light-ink: "#0b1b3a"
+  light-ink-soft: "#435575"
+  light-line: "#c9d5e6"
+  light-line-dark: "#7488a6"
+  light-sage-selection: "#dcecf8"
+  light-focus: "#006c80"
+  light-warning: "#8a5b00"
+  light-conflict-rust: "#b83224"
+  light-conflict-soft: "#fcece8"
+  light-success: "#08734f"
+  light-field: "#ffffff"
+  light-surface-hover: "#e2ebf8"
+  light-badge: "#e1eaf7"
+  light-success-soft: "#e4f4ed"
+  light-success-ink: "#075b3e"
+  light-warning-soft: "#fff3d6"
+  light-warning-ink: "#704900"
+  light-error-ink: "#992b20"
 typography:
   display:
-    fontFamily: "IBM Plex Sans, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "19px"
-    fontWeight: 700
-    lineHeight: 1.25
-    letterSpacing: "-0.015em"
-  body:
-    fontFamily: "IBM Plex Sans, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "14px"
-    fontWeight: 400
-    lineHeight: 1.45
-    letterSpacing: "normal"
-  figure:
-    fontFamily: "IBM Plex Sans, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "20px"
-    fontWeight: 700
+    fontFamily: "Arial Narrow, Aptos Narrow, Helvetica Neue Condensed, ui-sans-serif, sans-serif"
+    fontSize: "27px"
+    fontWeight: 850
     lineHeight: 1.1
-    letterSpacing: "-0.02em"
-  label:
-    fontFamily: "IBM Plex Sans, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "9.5px"
-    fontWeight: 700
+    letterSpacing: "-0.045em"
+  headline:
+    fontFamily: "Arial Narrow, Aptos Narrow, Helvetica Neue Condensed, ui-sans-serif, sans-serif"
+    fontSize: "18px"
+    fontWeight: 850
     lineHeight: 1.2
-    letterSpacing: "0.13em"
-  print:
-    fontFamily: "Arial, Helvetica, sans-serif"
-    fontSize: "12px"
+    letterSpacing: "0.025em"
+  title:
+    fontFamily: "IBM Plex Sans Variable, ui-sans-serif, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif"
+    fontSize: "16px"
+    fontWeight: 700
+    lineHeight: 1.3
+    letterSpacing: "-0.02em"
+  body:
+    fontFamily: "IBM Plex Sans Variable, ui-sans-serif, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif"
+    fontSize: "13px"
     fontWeight: 400
+    lineHeight: 1.5
+    letterSpacing: "normal"
+  label:
+    fontFamily: "IBM Plex Sans Variable, ui-sans-serif, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif"
+    fontSize: "10px"
+    fontWeight: 700
     lineHeight: 1.4
     letterSpacing: "normal"
 rounded:
-  sm: "7px"
-  md: "9px"
-  lg: "11px"
-  xl: "14px"
-  pill: "99px"
-spacing:
   xs: "5px"
-  sm: "9px"
-  md: "14px"
-  lg: "18px"
-  xl: "24px"
+  sm: "6px"
+  md: "7px"
+  lg: "9px"
+  round: "50%"
+spacing:
+  compact: "8px"
+  control: "12px"
+  cluster: "14px"
+  section: "22px"
 components:
+  theme-toggle-light:
+    backgroundColor: "{colors.light-paper-strong}"
+    textColor: "{colors.light-ink}"
+    rounded: "{rounded.md}"
+    padding: "0 14px"
+    height: "44px"
   button-primary:
-    backgroundColor: "{colors.accent-dark}"
-    textColor: "{colors.on-accent}"
-    rounded: "{rounded.sm}"
-    padding: "8px 14px"
-  button-ghost:
-    backgroundColor: "transparent"
-    textColor: "{colors.dark-text}"
-    rounded: "{rounded.sm}"
-    padding: "8px 14px"
-  card-day:
-    backgroundColor: "{colors.dark-surface}"
-    textColor: "{colors.dark-text}"
-    rounded: "{rounded.lg}"
-    padding: "14px 15px 13px"
-  pill-status:
-    rounded: "{rounded.pill}"
-    padding: "3px 9px 3px 7px"
+    backgroundColor: "{colors.citrus}"
+    textColor: "{colors.ink}"
     typography: "{typography.label}"
-  input-field:
-    backgroundColor: "{colors.dark-bg}"
-    textColor: "{colors.dark-text}"
+    rounded: "{rounded.md}"
+    padding: "0 14px"
+    height: "40px"
+  button-primary-hover:
+    backgroundColor: "{colors.citrus-hover}"
+    textColor: "{colors.ink}"
+    typography: "{typography.label}"
+    rounded: "{rounded.md}"
+    padding: "0 14px"
+    height: "40px"
+  button-secondary:
+    backgroundColor: "{colors.paper-strong}"
+    textColor: "{colors.ink}"
+    typography: "{typography.label}"
+    rounded: "{rounded.md}"
+    padding: "0 14px"
+    height: "40px"
+  input:
+    backgroundColor: "{colors.field}"
+    textColor: "{colors.ink}"
+    typography: "{typography.body}"
     rounded: "{rounded.sm}"
-    padding: "7px 9px"
-  nav-item:
-    backgroundColor: "transparent"
-    textColor: "{colors.dark-text}"
-    rounded: "{rounded.md}"
-    padding: "9px 11px"
-  swap-control:
-    backgroundColor: "transparent"
-    textColor: "{colors.dark-text-3}"
-    rounded: "{rounded.md}"
-    size: "30px"
+    padding: "10px 11px"
+  chip:
+    backgroundColor: "{colors.paper-muted}"
+    textColor: "{colors.ink}"
+    typography: "{typography.label}"
+    rounded: "{rounded.xs}"
+    padding: "0 7px"
+    height: "24px"
 ---
 
-# Design System: ForX
+# Design System: MiDespensa
 
 ## Overview
 
-ForX es la herramienta con la que se forja el menú de un comedor industrial. El
-nombre juega con *fork* y *forge*; el sistema visual sale del logotipo, no de
-una paleta inventada.
+**Creative North Star: "La Consola FORX"**
 
-La tesis del sistema cabe en una frase: **la rampa cálida del logotipo es la
-escala del semáforo.** El degradado rojo → ámbar de la marca no es decoración —
-es exactamente el rango que COSTEO.md usa para decir si un día pierde dinero.
-Por eso el marino domina la superficie, los cálidos quedan reservados a
-comunicar estado, y todo lo interactivo usa un acento frío. Si el naranja fuera
-además el color de lo clickeable, dejaría de significar "margen mínimo,
-revisar", y detectar el día que pierde dinero es el trabajo central del
-producto.
+MiDespensa continúa el lenguaje visual de la aplicación FORX: un lienzo azul marino profundo, paneles azules contiguos, bordes fríos y acentos turquesa, ámbar y naranja. La interfaz sigue siendo sobria, técnica y legible; la procedencia de cada dato se presenta como una secuencia visible, no como una automatización opaca.
 
-El tema oscuro es el primario, y no por moda: la identidad cálida de ForX
-funciona mucho mejor sobre marino. Medido — `#F9C043` da 9.59:1 sobre superficie
-oscura y 1.66:1 contra blanco.
+La densidad es intencional. Tablas, pestañas de índice y fichas apiladas permiten comparar evidencia, interpretación y costo en el mismo campo visual. El amarillo queda reservado para decisiones primarias, el turquesa orienta navegación y foco, y el coral aparece únicamente cuando existe conflicto o una acción destructiva.
 
-Es una herramienta que se opera, no un documento que se lee. La densidad manda
-sobre el aire, y el resumen va antes del detalle.
+La variante clara extiende este mismo mundo: lienzo frío, paneles blancos y tinta marina, con estados más oscuros sobre fondos suaves. Conserva densidad, tipografía, geometría, navegación marina y logo; el tema oscuro sigue siendo el predeterminado cuando no existe una preferencia guardada.
+
+**Key Characteristics:**
+
+- Lienzo azul marino con paneles azules y navegación casi negra.
+- Variante clara de superficies y estados, con la misma navegación marina y jerarquía operativa.
+- Retícula operativa, hairlines fríos y controles de radio contenido.
+- Jerarquía tipográfica compacta con encabezados condensados y numerales tabulares.
+- Estados explícitos que combinan texto, color y marcadores.
+- Hebra de procedencia numerada para original → producto → ingrediente → precio real.
+- Logo MiDespensa sobre la navegación, con su X naranja y amarilla como firma de producto.
 
 ## Colors
 
-### Marca
+La paleta proviene de la aplicación FORX de referencia: azul noche, paneles azul profundo, turquesa de interacción y ámbar de acción. El naranja del logo MiDespensa se conserva en la identidad sin competir con los estados operativos.
 
-Tomados del vector del logotipo, que es la fuente autoritativa. Un PNG previo
-daba valores más saturados; quedaron descartados.
+Los tokens sin prefijo registran la variante oscura. Los tokens `light-*` registran sus equivalentes bajo `data-theme="light"`, definidos en `src/ui/midespensa-light.css`; el prefijo distingue variantes en este documento, no renombra las variables CSS. `light-sage-selection`, `light-conflict-rust`, `light-conflict-soft`, `light-success` y `light-warning` corresponden a `--sage`, `--rust`, `--rust-soft`, `--green` y `--amber`. `light-focus` sirve también al azul de interacción (`--blue`). El resto conserva su nombre al quitar el prefijo.
 
-- **`brand-navy` `#0C255C`** — el azul del logotipo. Ancla la identidad y da la
-  familia de superficies oscuras.
-- **Rampa de la marca** — `#D83021` → `#EA7630` → `#F9C043`, con `#E64328`,
-  `#EB7C32` y `#F2BE43` como medios del degradado original.
-- **`sparx-accent` `#E95B2D`** — solo el bloque "Sparx AI" de la firma.
+### Primary
 
-### Superficies
+- **Azul Noche FORX** (`spruce`, #020f27): navegación y estructura permanente.
+- **Ámbar de Decisión** (`citrus`, #ffc246): acción primaria y selección de texto; señala el siguiente paso sin teñir superficies completas.
+- **Ámbar Activo** (`citrus-hover`, #ffad28): respuesta de hover exclusiva de la acción primaria.
 
-El tema oscuro deriva del marino de marca: fondo `#05122F`, tarjetas `#0A1F4E`,
-sidebar `#000C22`. El tema claro usa un blanco con sesgo azul (`#F3F6FC`),
-elegido a propósito y no heredado: un crema o un gris neutro romperían el
-parentesco con el marino.
+### Secondary
 
-El sidebar es oscuro **en los dos temas**. Por eso el logotipo del sidebar usa
-siempre la variante clara.
+- **Selección Clara** (`light-sage-selection`): filas seleccionadas y zonas de carga activas.
+- **Verde Validado Claro** (`light-success`): marcadores y bordes positivos; `light-success-soft` y `light-success-ink` forman el par de fondo y texto de chips y avisos positivos.
 
-### Estado
+- **Azul de Selección** (`sage-selection`, #0b365f): renglón de tabla seleccionado y zonas de carga activas.
+- **Verde Validado** (`success`, #16c586): puntos de estado, sugerencias y confirmaciones positivas.
 
-Cuatro bandas con significado financiero, definido en COSTEO.md:
+### Tertiary
 
-| Banda | Relleno | Significa |
-|---|---|---|
-| Verde | `#12A863` | Cumple el margen objetivo |
-| Amarillo | `#F9C043` | Cerca del objetivo |
-| Naranja | `#EA7630` | Gana poco, revisar |
-| Rojo | `#D83021` | Pierde dinero |
+- **Turquesa Legible** (`light-focus`): foco, vínculos e interacción sobre superficies claras. La barra marina conserva su foco turquesa original.
+- **Conflicto Claro** (`light-conflict-rust`, `light-conflict-soft`, `light-error-ink`): borde o acción de peligro, fondo suave y texto de error en avisos y chips.
+- **Advertencia Clara** (`light-warning`, `light-warning-soft`, `light-warning-ink`): borde, fondo y texto de avisos provisionales; la acción primaria conserva el ámbar original.
 
-El verde no existe en el logotipo, y está bien: es señal, no marca.
+- **Coral de Conflicto** (`conflict-rust`, #ff6854): conflictos, errores y acciones peligrosas.
+- **Ámbar Provisional** (`warning`, #ffc246): estados temporales o aún no confirmados.
+- **Turquesa de Foco** (`focus`, #16cde5): foco de teclado, navegación activa y vínculos; no compite con el ámbar como llamada a la acción.
 
-**Una escala, todas las superficies.** Las mismas cuatro bandas sirven al menú
-del día y a Grill Express. Grill Express usaba tres bandas y las pintaba con
-rellenos sólidos y texto blanco — 2.42:1 en amarillo, 2.97:1 en naranja. Ahora
-usa las píldoras del sistema, con tinta del tema y glifo por banda.
+### Neutral
+
+- **Lienzo Claro** (`light-paper`), **Panel Blanco** (`light-paper-strong`) y **Carril Claro** (`light-paper-muted`): fondo general, lectura principal y evidencia lateral o fórmulas.
+- **Tinta Marina** (`light-ink`) y **Tinta Secundaria Clara** (`light-ink-soft`): lectura y metadatos sobre fondos claros.
+- **Divisores Claros** (`light-line`, `light-line-dark`): separación y límite firme de controles.
+- **Campo Blanco** (`light-field`), **Hover Frío** (`light-surface-hover`) e **Insignia Clara** (`light-badge`): campos, respuesta al puntero y chips o contadores neutrales.
+
+- **Lienzo Profundo** (`paper`, #071a3d): fondo general.
+- **Panel Operativo** (`paper-strong`, #0b2858): tablas, controles secundarios y superficies de lectura.
+- **Carril Nocturno** (`paper-muted`, #061531): navegación, scrollbars y capas profundas.
+- **Tinta Principal** (`ink`, #f3f7ff): texto de máxima jerarquía.
+- **Tinta Secundaria** (`ink-soft`, #9eb0cf): explicación, metadatos y etiquetas.
+- **Hairline Azul** (`line`, #1b4278) y **Hairline Firme** (`line-dark`, #31578a): separación y límites de control.
 
 ### Named Rules
 
-**La Regla del Relleno y la Tinta.** Los colores de la marca son **rellenos**
-—segmentos del medidor, barra de distribución, la marca misma—, no colores de
-texto. Como texto casi no sirven sobre fondo claro. Cada tema tiene sus tintas
-propias, verificadas contra su fondo real con composición alpha:
+**The Amber Decision Rule.** El ámbar identifica la acción principal; el turquesa se reserva para foco y navegación activa. Ninguno se usa como relleno decorativo de una sección completa.
 
-| | Oscuro sobre `#0A1F4E` | Claro sobre `#FFFFFF` |
-|---|---|---|
-| Verde | `#2ABF7B` · 6.70:1 | `#0C6339` |
-| Amarillo | `#F9C043` · 9.59:1 | `#6E4E00` |
-| Naranja | `#EA7630` · 5.41:1 | `#8F3D00` |
-| Rojo | `#FF6B52` · 5.67:1 | `#A81F16` |
+**The Conflict Is Coral Rule.** El coral se reserva para conflicto, error o peligro y siempre aparece acompañado de texto o iconografía comprensible.
 
-En oscuro, el ámbar y el naranja **auténticos del logotipo** pasan sin retoque.
-Solo el rojo necesita aclararse: `#D83021` da 3.31:1 y no alcanza.
-
-**La Regla del Frío Interactivo.** Botones, ítem activo del sidebar, enlaces,
-focus y el selector de línea usan el acento frío (`#0E9FB0` claro, `#16C0D2`
-oscuro). Ningún cálido es clickeable; ningún frío significa estado.
-
-**La Regla de la Tinta por Luminancia.** La tinta sobre un relleno se elige por
-la luminancia del relleno, no por su familia. Los cálidos claros piden tinta
-oscura (`#2A1206`); el rojo profundo pide blanca (4.81:1 contra 3.68:1 de la
-oscura). El acento teal es brillante, así que también pide tinta marino: 8.38:1
-contra 2.21:1 del blanco.
-
-**La Regla del Piso AA.** Todo texto pasa 4.5:1 contra su fondo compuesto, o
-3:1 si es grande. Verificado en 33 elementos por tema. Peor caso actual: 4.89:1
-en oscuro, 4.74:1 en claro.
+**The Same Console Rule.** El tema claro cambia superficies, tintas y estados; conserva la navegación marina, el logo, el ámbar de acción y la geometría de trabajo.
 
 ## Typography
 
-Una sola familia en toda la interfaz: **IBM Plex Sans**, auto-hospedada en
-`fuentes/plex-latin-var.woff2`: fuente variable con eje `wght` 300–700,
-subseteada a latin (cobertura completa del español verificada), 31.9 KB en una
-sola petición. Licencia SIL OFL en `fuentes/OFL-IBMPlexSans.txt`. La regla:
+**Display Font:** Arial Narrow con Aptos Narrow, Helvetica Neue Condensed y sans-serif como respaldo.
+**Body Font:** IBM Plex Sans Variable, autoalojada, con la pila sans-serif del sistema como respaldo.
+**Label/Mono Font:** La pila de cuerpo; los identificadores y montos conservan numerales tabulares en lugar de introducir otra familia.
 
-```css
-@font-face{
-  font-family:"IBM Plex Sans";
-  src:url("/fuentes/plex-latin-var.woff2") format("woff2-variations");
-  font-weight:300 700; font-style:normal; font-display:swap;
-}
-```
-
-Sin italic a propósito: el sistema no la usa. El peso máximo del eje es 700.
-
-La elección tiene razones, no gusto: herencia industrial y de ingeniería, que le
-va a un comedor industrial; **cifras tabulares por defecto** — los diez dígitos
-miden 600/1000 em en todo el eje de pesos, medido en la fuente, así que la
-alineación de columnas no depende de activar ninguna feature —; buena cobertura
-del español; y no está entre las familias que el detector marca como
-sobreexpuestas — al contrario de Inter, que sí lo está.
-
-Los cinco generadores de impresión **conservan Arial**. La razón es operativa:
-el documento tiene que salir igual en cualquier impresora de cocina sin depender
-de una fuente instalada o embebida.
+**Character:** Los encabezados condensados evocan índices impresos y rótulos de gabinete. IBM Plex Sans aporta una voz técnica editorial al cuerpo y sostiene tablas densas, unidades, importes y evidencia fiscal sin perder ritmo.
 
 ### Hierarchy
 
-| Rol | Tamaño | Peso | Uso |
-|---|---|---|---|
-| `display` | 19px | 700 | Título de superficie |
-| `figure` | 20–22px | 700 | Costo por pax, precio de línea |
-| `body` | 13.5–14px | 400–650 | Nombres de platillo, texto corrido |
-| `label` | 9.5–10px | 700 | Etiquetas versalitas, `letter-spacing: 0.13em` |
-| `meta` | 10.5–11px | 600 | Cárnico, unidades, avisos |
+- **Display** (850, 27px, 1.1): títulos de página y encabezado de la cola, con tracking cerrado.
+- **Headline** (850, 18px, 1.2): títulos de ficha y paneles de evidencia.
+- **Title** (700, 16px, 1.3): encabezados de sección y formularios.
+- **Body** (400, 13px, 1.5): navegación, búsquedas, descripciones y celdas principales; los textos explicativos se limitan aproximadamente a 68ch.
+- **Label** (700, 10px, 1.4): metadatos, chips, encabezados compactos y ayudas.
 
 ### Named Rules
 
-**La Regla de las Cifras Tabulares.** Todo número que se compara en columna
-lleva `font-variant-numeric: tabular-nums`. Sin eso las cifras de costo bailan
-y la tabla deja de ser legible de un barrido.
+**The Cabinet Label Rule.** Usa la familia condensada solo para títulos, wordmark y encabezados de tabla; la lectura operativa larga permanece en la sans funcional.
 
-**La Regla del Tracking en Versalitas.** Las etiquetas en mayúsculas nunca van
-sin `letter-spacing`. A 9.5px, apretadas, son ilegibles.
+**The Stable Numbers Rule.** Montos, cantidades, métricas e identificadores usan numerales tabulares para que las comparaciones verticales no salten.
 
 ## Layout
 
-Cascarón de dos columnas: sidebar fijo de **264px** y área principal fluida. El
-sidebar es `position: sticky` a altura completa con scroll propio; la barra
-superior de la superficie también es sticky.
+La composición de escritorio es un gabinete de dos niveles: una barra lateral de 12vw y una franja superior de 64px enmarcan el área operativa. La vista de revisión divide el espacio restante entre una cola flexible con mínimo de 620px y una ficha de evidencia de aproximadamente 30.6vw, con mínimo de 390px. Los límites de 1px sustituyen el espacio vacío excesivo y mantienen visibles las relaciones entre registros.
 
-La rejilla de días es `repeat(auto-fill, minmax(288px, 1fr))` con `gap: 14px`.
-El ancho mínimo de 288px es lo que necesita una tarjeta para mostrar tres
-platillos con su costo sin que el nombre se rompa.
+El ritmo recurrente utiliza 8px para ajustes compactos, 12–14px dentro de controles y 22px en márgenes de sección. Los renglones de revisión miden 76px y el encabezado fijo 53px, lo suficiente para leer sin perder densidad. Los paneles generales usan 22px de margen lateral; las fichas de procedencia reducen ese margen para favorecer la comparación.
 
-El espaciado se resuelve con `gap` en flex y grid, nunca con márgenes por
-elemento: en un archivo único los márgenes se duplican y se colapsan sin que se
-note de dónde viene.
+A 1180px la navegación colapsa a 72px y esconde las etiquetas. A 900px se transforma en una banda horizontal fija de 58px; la cola y la ficha se apilan y la tabla conserva su ancho de 820px mediante desplazamiento horizontal. A 620px los formularios, resúmenes y acciones pasan a una columna, mientras el desglose de precio real mantiene dos columnas por fila.
 
-### Responsive
+**The Evidence Beside Queue Rule.** En escritorio, la cola y la procedencia conviven; en pantallas estrechas se apilan sin simplificar ni esconder la evidencia.
 
-Debajo de **900px** el cascarón colapsa a una columna y el sidebar se vuelve
-horizontal con los ítems en fila. Ahí los ítems de navegación **suben** de 13.5px
-a 14px y su padding crece: el rango real de dispositivos va de tablet Windows en
-cocina a escritorio amplio, y son exigencias opuestas — densidad legible para
-trabajo analítico prolongado, y objetivos táctiles grandes con lectura a
-distancia de brazo.
-
-Cualquier contenido ancho —tablas, diagramas— scrollea en su propio contenedor
-con `overflow-x: auto`. El cuerpo de la página nunca scrollea de lado.
+El selector de tema se sitúa después de Consultar catálogo en la barra superior y mide al menos 44px de alto. A 1180px o menos oculta su etiqueta visible y ocupa 44px de ancho, conservando icono, nombre accesible y tooltip. La barra incorpora una columna automática para este control; a 620px mantiene tres columnas al desaparecer la cuenta según el comportamiento existente.
 
 ## Elevation & Depth
 
-Híbrido, con el peso en el **escalonado tonal**. La jerarquía se lee por
-diferencia de superficie (fondo → tarjeta → superficie elevada), y la sombra
-solo la confirma. En el tema oscuro la sombra apenas se percibe, así que el
-escalonado tonal carga casi todo el trabajo.
+El sistema es plano por defecto. La jerarquía se construye con capas de azul, bordes de 1px y superficies contiguas; no se usan sombras para elevar tablas, fichas o paneles. La única elevación ambiental persistente pertenece a mensajes flotantes, mientras que el foco usa un anillo turquesa y la tabla activa una barra interior.
 
 ### Shadow Vocabulary
 
-- **Tarjeta en reposo** (`0 1px 2px rgba(11,27,58,.06), 0 8px 24px rgba(11,27,58,.07)` en claro; `0 1px 2px rgba(0,0,0,.4), 0 10px 30px rgba(0,0,0,.35)` en oscuro): la sombra por defecto de tarjetas y paneles.
-- **Modal** (`0 24px 70px rgba(0,0,0,.45)`): único nivel realmente elevado del sistema.
+- **Toast ambiental** (`0 14px 34px rgba(0, 8, 24, .32)`): separa confirmaciones flotantes del contenido sin convertirlas en tarjetas pesadas.
+- **Toast ambiental claro** (`0 14px 34px rgba(11, 27, 58, .16)`): reduce la opacidad de elevación en el lienzo claro; las notificaciones conservan su tinta blanca sobre fondo oscuro.
+- **Anillo de foco** (`0 0 0 2px color-mix(in srgb, #16cde5 18%, transparent)`): acompaña al borde turquesa del campo activo.
+- **Barra de fila enfocada** (`inset 3px 0 #16cde5`): conserva la alineación del registro y añade una señal de teclado.
 
 ### Named Rules
 
-**La Regla del Borde Siempre.** Toda superficie lleva borde de 1px además de su
-sombra. En tema oscuro la sombra no separa lo suficiente y sin borde las
-tarjetas se disuelven en el fondo.
+**The Flat Ledger Rule.** Las superficies de trabajo permanecen planas; usa hairlines y cambios de hoja antes que sombras.
 
 ## Shapes
 
-Geometría de esquinas suaves y consistentes, sin ángulos rectos y sin cápsulas
-excepto donde la forma comunica algo. La escala sube con la superficie: controles
-7px, ítems de navegación y candidatos 9px, tarjetas 11px, modal 14px. Las
-píldoras de estado son el único `99px` — su forma de cápsula las separa de todo
-lo demás, que es justo lo que se busca.
+La forma es recta y contenida, con radios pequeños que suavizan controles sin volverlos amigables en exceso. Chips y contadores usan 5px, controles primarios 6–7px y fichas o notificaciones 9px. Los círculos se reservan para avatares, puntos de estado e índices numerados. Las tablas y grupos métricos conservan esquinas rectas para reforzar la retícula de gabinete.
 
-**La Regla del Sin Rail.** Ninguna tarjeta lleva una franja de color en su
-borde. Es el tell más reconocible de UI generada por IA, y el detector lo marca
-en el diseño anterior (`side-tab`, `border-left: 4px`). El estado se comunica con
-píldora, glifo y posición en el medidor.
+**The Contained Radius Rule.** Nunca incrementes el radio para fabricar tarjetas blandas: 9px es el límite de las superficies recurrentes y 50% pertenece solo a marcadores verdaderamente circulares.
 
 ## Components
 
 ### Buttons
 
-- **Shape:** esquinas suaves (`7px`).
-- **Primary:** relleno acento con tinta marino `#05122F` (8.38:1), padding `8px 14px`, peso 650.
-- **Hover / Focus:** el primario aclara a `accent-dark`; el focus siempre es un anillo visible de 2px con `outline-offset`, nunca solo un cambio de color.
-- **Ghost:** fondo transparente, borde del sistema, texto del color base. Para acciones secundarias como "Lista de compras".
+En claro, secundarios y campos usan panel blanco con tinta marina; el hover secundario usa Hover Frío. Los primarios conservan ámbar y texto oscuro. Foco, borde y peligro toman el equivalente semántico del tema.
+
+- **Shape:** control compacto de 40px de alto con esquinas contenidas (7px); la variante compacta mide 32px y las decisiones de evidencia 53px.
+- **Primary:** fondo ámbar, texto azul casi negro y padding horizontal de 14px; la acción superior amplía el padding a 22px.
+- **Hover / Focus:** el primario profundiza al ámbar activo; todas las variantes reciben el foco turquesa global de 3px con separación de 2px.
+- **Secondary / Quiet / Danger:** el secundario usa panel azul y borde firme; quiet elimina el borde; danger conserva fondo transparente y usa coral en borde y texto.
 
 ### Chips
 
-Las píldoras de estado son el vocabulario de banda. Fondo con tinte del relleno
-al 12–14%, borde de la tinta al 42–48%, texto en la tinta del tema. **Cada banda
-lleva un glifo distinto** — círculo, cuadro, triángulo, rombo — así el tono no es
-el único portador del significado, que además resuelve daltonismo en el eje
-naranja/rojo/amarillo, el más difícil.
+En claro, chips neutrales usan Insignia Clara; los positivos, provisionales y de error comparten con los avisos sus pares de fondo suave y tinta oscura.
 
-La píldora **abraza su contenido** (`align-self: flex-start`). A todo el ancho
-de la tarjeta se lee como una barra de acento, que es el cliché que este sistema
-evita.
+- **Style:** etiquetas de 24px, radio de 5px, cuerpo de 9px en negrita y relleno horizontal de 7px.
+- **State:** neutral azul, validado verde, provisional ámbar y conflicto coral; el estado nunca depende solo del color.
 
 ### Cards / Containers
 
-- **Corner Style:** `11px`.
-- **Background:** `dark-surface` / `light-surface`.
-- **Shadow Strategy:** tarjeta en reposo; ver Elevation.
-- **Border:** 1px del borde del tema, obligatorio.
-- **Internal Padding:** `14px 15px 13px`.
-- **Hover:** el borde toma el color del acento. Sin desplazamiento ni escala.
+En claro, tablas y fichas son blancas, la evidencia lateral y las fórmulas usan Carril Claro y las filas seleccionadas usan Selección Clara. Se conserva la regla Flat Ledger.
+
+- **Corner Style:** las fichas de evidencia usan esquinas suavemente curvas (9px); paneles, tablas y resúmenes permanecen rectos.
+- **Background:** panel azul o azul translúcido sobre el lienzo profundo.
+- **Shadow Strategy:** sin sombra en reposo; ver la regla Flat Ledger.
+- **Border:** hairline claro de 1px; el firme se reserva para controles y separadores de mayor jerarquía.
+- **Internal Padding:** 12–14px en fichas, 18–22px en formularios y paneles secundarios.
 
 ### Inputs / Fields
 
-Fondo un paso más oscuro que su contenedor, borde de 1px, radio `7px`. El focus
-es un `outline` de 2px del acento con `outline-offset: 1px`. Los `select` del
-sidebar viven sobre superficie oscura, así que usan fondo translúcido blanco al
-7% y borde blanco al 16%.
+- **Style:** fondo azul profundo, borde firme de 1px, radio de 6–7px y padding de 10px × 11px; etiquetas pequeñas encima del control.
+- **Focus:** borde turquesa y anillo exterior translúcido.
+- **Error / Disabled:** error en coral; controles deshabilitados reducen opacidad a .46 y eliminan la expectativa de interacción.
 
 ### Navigation
 
-Sidebar vertical, ítems de 13.5px peso 600 con ícono de 16px a `opacity: .72`.
-El ítem activo lleva fondo del acento al 16%, borde del acento al 42% y texto
-blanco, con `aria-current="page"`. Debajo de 900px pasa a fila horizontal con
-tipografía y padding mayores.
+La barra marina y el logo conservan su tratamiento en ambos temas. La navegación mantiene el turquesa original de foco y texto claro aunque el área operativa use tinta marina.
 
-### Línea de contrato activa (firma)
+La navegación principal usa azul casi negro y botones de 48px con icono más etiqueta. El nuevo SVG de MiDespensa entregado por el usuario, con fondo y huecos transparentes, encabeza la barra completo en escritorio, tablet y móvil; conserva su proporción sin recortarse al símbolo X. El activo suma un fondo turquesa translúcido, peso 700 y una pestaña turquesa de 4px al borde izquierdo. En tablet se ocultan las etiquetas; en móvil la navegación gira a una banda horizontal y la pestaña pasa al borde inferior.
 
-Bloque de primer nivel en la cabecera del sidebar, con su precio en tipografía
-`figure`. No es un control secundario y no puede vivir en una barra de filtros:
-cuando un comedor atiende a más de un cliente con la misma cocina, *contra qué
-línea se está costeando* determina si el semáforo significa algo. Si la línea
-está mal, todos los colores mienten.
+### Selector de tema
 
-### Medidor de umbrales (firma)
+Botón semántico con icono y etiqueta de destino: «Cambiar a tema claro» o «Cambiar a tema oscuro». `aria-label`, `title` y texto visible se sincronizan al alternar. El foco visible sigue la regla global. MiDespensa y el selector existente de FORX comparten `forx-v2-theme`: primero se recupera `localStorage`, después `sessionStorage` como respaldo y finalmente oscuro. La elección persiste entre módulos y recargas cuando el almacenamiento está disponible; si ambos almacenes están bloqueados, alternar sigue funcionando durante la sesión en memoria. La preferencia es de presentación y no pertenece a los datos de negocio.
 
-El componente que define el sistema. Una pista de 7px con los cuatro umbrales de
-COSTEO.md como segmentos proporcionales de la rampa, y una aguja de 2.5px con
-halo del color de la superficie marcando la materia prima del día.
+### Ficha de procedencia
 
-Responde algo que una insignia de color no puede: **qué tan cerca está el día de
-cambiar de banda.** Cuando faltan $2.50 o menos para el borde superior, lo dice
-con texto ("a $1.65 del borde"). Un día verde a punto de no serlo es información
-que el semáforo por sí solo esconde.
+Cuatro fichas numeradas conectan el dato original, el producto comercial, el ingrediente maestro y el precio real con merma. Una hebra de 1px anima su entrada durante 550ms con una curva de salida rápida; `prefers-reduced-motion` elimina la animación. Los pasos interpretados ofrecen un control Editar, y la decisión primaria queda inmediatamente después del cálculo.
 
-### Control de cambio por platillo
+### Cola de revisión
 
-Botón de ícono de 30px, callado en reposo (borde tenue, sin relleno) para no
-competir con el costo ni con la banda. **Siempre visible, nunca solo en hover:**
-la tablet de cocina no tiene hover. Área táctil de 44px vía pseudo-elemento, más
-grande que el control visible. Los platillos fijos ("⭐ Especial") muestran
-candado en su lugar y no se pueden cambiar.
+La tabla usa un encabezado fijo, filas de 76px y selección en azul medio. Cada estado combina un punto, una etiqueta textual y, cuando hay conflicto, color de texto. El foco de teclado añade una barra interior turquesa; la selección conserva el registro completo como una sola unidad visual.
 
 ## Do's and Don'ts
 
 ### Do:
 
-- **Do** reservar la rampa cálida (`#D83021`–`#F9C043`) exclusivamente para
-  estado, y usar el acento frío para todo lo interactivo.
-- **Do** elegir la tinta sobre un relleno por su luminancia: oscura `#2A1206`
-  sobre cálidos claros, blanca sobre el rojo, marino sobre el acento teal.
-- **Do** mantener `tabular-nums` en toda cifra que se compare en columna.
-- **Do** codificar el estado de forma redundante: color, glifo, etiqueta y
-  posición en el medidor.
-- **Do** dejar visibles los controles táctiles en reposo, con 44px de área.
-- **Do** conservar Arial y fondo claro en los cinco generadores de impresión.
-- **Do** usar `forx-mark.svg` para cualquier uso por debajo de ~96px.
-- **Do** usar `forx-logo-dark.svg` sobre cualquier superficie oscura.
+- **Do** conserva la secuencia original → producto → ingrediente → precio real cuando una decisión dependa de evidencia.
+- **Do** usa divisores de 1px y cambios tonales para estructurar información densa.
+- **Do** reserva el ámbar para una única decisión primaria y el turquesa para foco o navegación activa.
+- **Do** presenta estado con texto, marcador e iconografía cuando corresponda.
+- **Do** mantiene las tablas desplazables en móvil antes que eliminar columnas de procedencia.
 
 ### Don't:
 
-- **Don't** usar los colores de la rampa como texto sobre fondo claro:
-  `#F9C043` da 1.66:1 contra blanco.
-- **Don't** poner el logotipo marino sobre superficie oscura: 1.09:1, invisible.
-- **Don't** poner una franja de color en el borde de una tarjeta.
-- **Don't** dejar una píldora de estado a todo el ancho de su contenedor.
-- **Don't** usar el logotipo completo por debajo de 96px: a 32px es ilegible.
-- **Don't** meter degradados en los documentos que se imprimen: el láser
-  monocromo los convierte en mancha. Usar `forx-logo-mono.svg`.
-- **Don't** cambiar qué calcula el semáforo ni sus criterios: eso vive en
-  COSTEO.md y solo cambia su presentación.
-- **Don't** introducir un paso de build sin aprobación explícita: el deploy
-  directo a Pages es una decisión de producto, registrada en PRODUCT.md.
+- **Don't** conviertas el catálogo en un tablero de tarjetas independientes o métricas decorativas.
+- **Don't** uses sombras en fichas, tablas o paneles estáticos.
+- **Don't** uses coral para decoración, énfasis neutral o acciones positivas.
+- **Don't** redondees contenedores recurrentes por encima de 9px ni uses píldoras para controles que no sean marcadores compactos.
+- **Don't** ocultes merma, rendimiento o la fórmula que produce el precio real.

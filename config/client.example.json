@@ -1,0 +1,12 @@
+{
+  "enabled": false,
+  "environment": "staging",
+  "appOrigin": "https://forx-pendiente.invalid",
+  "apiOrigin": "https://forx-api-pendiente.invalid",
+  "firebase": {
+    "projectId": "forx-v2-pendiente-aprobar",
+    "authDomain": "forx-v2-pendiente-aprobar.firebaseapp.com",
+    "apiKey": "PENDIENTE_CLAVE_PUBLICA_WEB_NO_SECRETO",
+    "appId": "PENDIENTE_APP_WEB"
+  }
+}

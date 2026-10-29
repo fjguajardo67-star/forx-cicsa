@@ -1,0 +1,15 @@
+{
+  "environment": "staging",
+  "projectId": "forx-v2-pendiente-aprobar",
+  "databaseId": "forx-staging-pendiente",
+  "originalsBucket": "forx-v2-originales-pendiente",
+  "backupsBucket": "forx-v2-respaldos-pendiente",
+  "apiOrigin": "https://forx-api-pendiente.invalid",
+  "origins": ["https://forx-pendiente.invalid"],
+  "signInProvider": "google.com",
+  "limits": {"perUserMinute": 60, "globalMinute": 600, "concurrentPerProcess": 4},
+  "maintenance": {"retentionEnabled": false, "backupsEnabled": false, "generationTextRetentionEnabled": false},
+  "adminRecovery": {"enabled": false},
+  "recipeBudgetReconciliation": {"enabled": false},
+  "recipeGeneration": {"enabled": false}
+}

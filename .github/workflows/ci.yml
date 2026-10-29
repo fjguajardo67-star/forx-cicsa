@@ -1,0 +1,44 @@
+name: Verificar FORX v2
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar código
+        uses: actions/checkout@v4
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - name: Instalar dependencias
+        run: npm ci
+      - name: Bloquear avisos de dependencias (incluidas herramientas)
+        run: npm run audit:dependencies
+      - name: Configurar Java para emuladores
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+      - name: Ejecutar pruebas y compilación
+        run: npm run check
+      - name: Verificar reglas sin servicios reales
+        run: npm run test:rules
+      - name: Verificar recuperación aislada
+        run: npm run test:recovery
+      - name: Verificar backend de producción sin conectar cloud
+        run: npm run test:backend
+      - name: Instalar navegador de pruebas
+        run: npx playwright install --with-deps chromium
+      - name: Verificar flujo completo
+        run: npm run test:e2e
+      - name: Verificar imagen del backend sin secretos ni despliegue
+        run: docker build --tag forx-backend:ci .

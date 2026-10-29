@@ -1,0 +1,36 @@
+.access-page { min-height: 100dvh; background: var(--paper); color: var(--ink); }
+.access-header { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 20px 32px; background: var(--spruce); border-bottom: 1px solid var(--line-dark); }
+.access-header img { display: block; width: 152px; height: auto; }
+.access-header .button { background: #0b2858; border-color: #31578a; color: #f3f7ff; white-space: normal; }
+.access-header .button:hover { background: #12356d; }
+.access-main { width: min(100% - 40px, 440px); margin: clamp(40px, 10vh, 100px) auto; padding-bottom: 36px; }
+.access-main h1 { margin: 0 0 16px; font-size: 28px; font-weight: 650; letter-spacing: -.02em; line-height: 1.25; text-wrap: balance; }
+.access-main h1:focus { outline: none; } /* Programmatic reading target, not an interactive control. */
+.access-main p { line-height: 1.6; margin: 12px 0; }
+.access-intro, .access-note { color: var(--ink-soft); }
+.access-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.access-actions button { min-height: 44px; }
+.google-signin { display: inline-flex; align-items: center; justify-content: center; gap: 10px; border: 1px solid #747775; border-radius: 4px; background: #fff; color: #1f1f1f; padding: 0 12px; font: 500 14px/20px Arial, sans-serif; cursor: pointer; }
+.google-signin img { width: 20px; height: 20px; flex-shrink: 0; }
+.google-signin:hover { background: #f2f2f2; }
+.access-actions button:disabled { opacity: .55; cursor: wait; }
+.access-status { padding: 12px 0; color: var(--ink-soft); }
+.access-status:empty { display: none; }
+.access-status[role="alert"] { color: var(--rust); }
+.access-help { border-top: 1px solid var(--line); margin-top: 28px; padding-top: 20px; font-size: 14px; }
+.access-help a { color: var(--blue); text-underline-offset: 3px; }
+.access-help a:hover { text-decoration-thickness: 2px; }
+.access-reference { display: grid; gap: 6px; font-size: 14px; overflow-wrap: anywhere; }
+.access-reference dt { color: var(--ink-soft); }
+.access-reference dd { margin: 0 0 10px; user-select: all; }
+.access-preview { padding: 12px 20px; background: var(--paper-muted); color: var(--ink-soft); text-align: center; font-size: 13px; line-height: 1.5; border-bottom: 1px solid var(--line); }
+.session-account { padding: 12px; color: #c7d4ea; font-size: 12px; line-height: 1.5; overflow-wrap: anywhere; }
+.session-account strong { display: block; margin-bottom: 8px; }
+.session-account .button { width: 100%; background: #0b2858; color: #f3f7ff; border-color: #31578a; }
+@media (max-width: 600px) {
+  .access-header { padding: 16px 20px; gap: 12px; }
+  .access-header img { width: 120px; }
+  .access-header .button { max-width: 154px; font-size: 12px; }
+  .access-main { margin-top: 36px; }
+  .access-actions > button { width: 100%; }
+}

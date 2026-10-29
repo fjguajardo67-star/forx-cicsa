@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "broken-image",
+        "value": "*",
+        "files": [
+          "tests/recipe-generator-ui.test.js"
+        ],
+        "createdAt": "2026-10-04T15:48:55.479Z",
+        "reason": "Agent: intentional malicious HTML fixture proves provider text is escaped and no img element renders; not an image shipped in the interface."
+      }
+    ]
+  }
+}

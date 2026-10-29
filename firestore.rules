@@ -1,0 +1,62 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Roles exclusivos de FORX mediante claims emitidos por un servidor.
+    // Este corte no aprovisiona cuentas ni conecta la UI a Firestore.
+    function viewer() {
+      return request.auth != null
+        && request.auth.token.get('forxActive', false) == true
+        && request.auth.token.get('forxRole', '') in ['viewer', 'editor', 'admin'];
+    }
+    function editor() {
+      return viewer() && request.auth.token.get('forxRole', '') in ['editor', 'admin'];
+    }
+    function ownWrite() {
+      return editor() && request.resource.data.updatedBy == request.auth.uid
+        && request.resource.data._revision is int;
+    }
+    function created() { return ownWrite() && request.resource.data._revision == 1; }
+    function revised() {
+      return ownWrite()
+        && request.resource.data.id == resource.data.id
+        && request.resource.data._revision == resource.data._revision + 1;
+    }
+    match /products/{id} {
+      allow read: if viewer();
+      allow write: if false;
+    }
+    match /ingredients/{id} {
+      allow read: if viewer();
+      allow write: if false;
+    }
+    match /categories/{id} {
+      allow read: if viewer();
+      allow write: if false;
+    }
+    match /ingredient_keys/{id} {
+      allow read: if viewer();
+      allow write: if false;
+    }
+    match /settings/{id} {
+      allow read: if viewer();
+      allow write: if false;
+    }
+    match /recipes/{id} { allow read: if viewer(); allow write: if false; }
+    match /menus/{id} { allow read: if viewer(); allow write: if false; }
+    match /recipe_versions/{id} { allow read: if editor(); allow write: if false; }
+    match /recipe_names/{id} { allow read: if editor(); allow write: if false; }
+    // Requests and quotas are private to server commands, including for admin.
+    // Per-actor lookup must pass through authenticated command authorization.
+    match /generation_requests/{id} { allow read, write: if false; }
+    match /generation_quotas/{id} { allow read, write: if false; }
+    // Ingestión, validación de precios, revisión y retención deben ejecutarse
+    // en el futuro servidor FORX. Ningún cliente puede fabricar evidencia.
+    match /{collection}/{id} {
+      allow read: if (collection == 'price_observations' && viewer())
+        || (collection in ['batches', 'imports', 'import_keys', 'import_concepts',
+          'purchase_events', 'reviews', 'audit', 'originals'] && editor());
+      allow write: if false;
+    }
+    match /{document=**} { allow read, write: if false; }
+  }
+}
