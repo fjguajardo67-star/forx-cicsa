@@ -11,8 +11,11 @@ export async function runScheduledMaintenance(runtime,kind,{log=entry=>console.l
     || !policy.approvedBy || !Number.isFinite(Date.parse(policy.approvedAt)))throw new Error('Tarea programada no aprobada ni activada.');
   if(runtime.config.environment==='recovery')throw new Error('No se ejecutan tareas programadas en una recuperación.');
   const runId=crypto.randomUUID(),record=runtime.db.collection('_forx_jobs').doc(`scheduled_${runId}`),startedAt=new Date().toISOString();
+  // Backup identity is deliberately read-only in Firestore. Its immutable
+  // object, managed execution status and structured logs are its receipts.
+  const writeLedger=kind!=='backup';
   await runtime.assertReady();
-  await record.set({kind:`scheduled_${kind}`,state:'running',startedAt,approvedBy:policy.approvedBy});
+  if(writeLedger)await record.set({kind:`scheduled_${kind}`,state:'running',startedAt,approvedBy:policy.approvedBy});
   try {
     let result;
     if(kind==='backup')result=await createServerBackup(runtime);
@@ -25,10 +28,10 @@ export async function runScheduledMaintenance(runtime,kind,{log=entry=>console.l
       result=await worker.apply(plan,{confirmDigest:plan.digest});
       if(result.failed || plan.skipped.length)throw new Error('Hay objetos que requieren revisión.');
     }
-    await record.set({kind:`scheduled_${kind}`,state:'done',startedAt,finishedAt:new Date().toISOString(),result});
+    if(writeLedger)await record.set({kind:`scheduled_${kind}`,state:'done',startedAt,finishedAt:new Date().toISOString(),result});
     log({event:'job.completed',kind,runId});return {runId,...result};
   } catch {
-    await record.set({kind:`scheduled_${kind}`,state:'failed',startedAt,finishedAt:new Date().toISOString()});
+    if(writeLedger)await record.set({kind:`scheduled_${kind}`,state:'failed',startedAt,finishedAt:new Date().toISOString()});
     log({event:'job.failed',kind,runId});throw new Error(`La tarea no terminó; referencia ${runId}.`);
   }
 }
