@@ -1,0 +1,17 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    function editor() {
+      return request.auth != null
+        && request.auth.token.get('forxActive', false) == true
+        && request.auth.token.get('forxRole', '') in ['editor', 'admin'];
+    }
+    match /originals/{filename} {
+      allow read: if editor();
+      // El servidor validará hash, límite, fecha y retención. Este corte no
+      // habilita carga ni borrado cloud desde ningún cliente, incluido admin.
+      allow write: if false;
+    }
+    match /{path=**} { allow read, write: if false; }
+  }
+}

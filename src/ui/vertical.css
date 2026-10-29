@@ -1,0 +1,89 @@
+/* Extensión del sistema vigente para el flujo FORX v2. */
+.v2-shell { --sidebar: 206px; }
+.v2-brand { min-height: 115px; padding: 26px 22px; border-bottom: 1px solid var(--line); }
+.v2-brand > strong { display: block; font-size: 30px; letter-spacing: -.025em; }
+.v2-brand strong span { font-size: 13px; color: var(--focus); }
+.v2-brand > span { display: block; margin-top: 6px; color: var(--ink-soft); font-size: 12px; }
+.v2-shell .page-heading h1 { letter-spacing: -.035em; }
+.v2-topbar { grid-template-columns: minmax(160px, 1fr) auto auto; }
+.v2-review-layout { display: grid; grid-template-columns: minmax(360px, 1fr) minmax(390px, 46%); align-items: start; }
+.v2-queue { padding: 0 18px 24px; min-width: 0; }
+.v2-evidence { border-left: 1px solid var(--line); padding: 20px 18px 30px; background: var(--paper-muted); min-width: 0; }
+.v2-evidence > h2 { font-size: 18px; margin: 0 0 22px; overflow-wrap: anywhere; }
+.v2-evidence h3 { font-size: 14px; margin: 0 0 12px; }
+.v2-evidence .field-grid { font-size: 12px; }
+.v2-chain .evidence-step { padding-left: 48px; }
+.v2-form { margin: 18px 0; }
+.v2-form .form-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+.v2-form input, .v2-form select { min-width: 0; width: 100%; }
+.v2-form .button { white-space: normal; }
+.v2-form .field { font-size: 12px; }
+.v2-form .helper { line-height: 1.6; }
+.v2-table-scroll { max-width: 100%; overflow-x: auto; }
+.v2-shell .simple-table { font-size: 13px; }
+.v2-shell .simple-table th { font-size: 11px; }
+.v2-shell .simple-table td { padding-block: 16px; line-height: 1.5; }
+.v2-review-table { min-width: 420px; }
+.v2-review-table .selected { background: var(--sage); }
+.v2-catalog { min-width: 660px; }
+.v2-price strong { display: block; font-size: 26px; font-variant-numeric: tabular-nums; }
+.v2-price small { font-size: 14px; color: var(--ink-soft); }
+.v2-price > span { display: block; color: var(--amber); font-size: 12px; margin-top: 6px; }
+.v2-evidence .formula { padding: 12px; line-height: 1.7; font-size: 12px; }
+.v2-secondary-decision { padding-top: 22px; border-top: 1px solid var(--line); }
+.v2-secondary-decision .button { margin-top: 12px; }
+.v2-notice { padding: 14px 22px; background: var(--sage); font-size: 13px; line-height: 1.6; }
+.v2-notice.error { background: var(--rust-soft); color: var(--ink); }
+.v2-import-intro { display: flex; gap: 24px; align-items: center; margin-bottom: 24px; }
+.v2-import-intro .field { min-width: 200px; }
+.v2-file-label { max-width: 420px; margin: 20px auto; text-align: left; }
+.v2-file-label input { width: 100%; padding: 12px; border: 1px solid var(--line-dark); }
+input::file-selector-button { font: inherit; padding: 8px 10px; margin-right: 12px; background: var(--paper-strong); border: 1px solid var(--line-dark); border-radius: 6px; color: var(--ink); cursor: pointer; }
+.v2-retention-note { max-width: 80ch; margin-top: 20px; }
+.v2-result-list { display: flex; flex-wrap: wrap; gap: 12px 24px; margin: 20px 0; }
+.v2-result-list > div { display: flex; align-items: center; gap: 8px; }
+.v2-batch { padding: 18px 0; border-bottom: 1px solid var(--line); }
+.v2-batch summary, details summary { cursor: pointer; padding: 10px 0; font-size: 14px; }
+.v2-shell .helper { font-size: 12px; }
+.v2-shell .occurrence-note { font-size: 11px; }
+.v2-shell .chip { font-size: 11px; }
+.startup-error { padding: 30px; line-height: 1.6; }
+input, textarea { caret-color: var(--focus); }
+::selection { background: var(--citrus); color: var(--spruce); }
+@media (max-width: 1180px) {
+  .v2-shell { --sidebar: 180px; }
+  .v2-shell .nav-button span, .v2-shell .mode-note { display: block; }
+  .v2-shell .nav-button { justify-content: flex-start; padding-inline: 12px; }
+  .v2-review-layout { grid-template-columns: minmax(280px, 1fr) minmax(350px, 48%); }
+  .v2-topbar { grid-template-columns: minmax(100px, 1fr) auto auto; }
+}
+@media (max-width: 900px) {
+  .v2-shell { height: 100dvh; display: flex; flex-direction: column; }
+  .v2-shell .sidebar { position: static; display: block; flex-shrink: 0; height: auto; width: 100%; }
+  .v2-brand, .v2-shell .mode-note, .v2-shell .nav-spacer { display: none; }
+  .v2-shell .nav-list { display: flex; overflow-x: auto; margin: 0; height: 52px; }
+  .v2-shell .nav-list li { flex: 0 0 auto; }
+  .v2-shell .nav-button { min-height: 52px; gap: 7px; padding-inline: 14px; }
+  .v2-shell .nav-button span { display: inline; font-size: 12px; }
+  .v2-shell .app-main { margin: 0; flex: 1; min-height: 0; }
+  .v2-review-layout { display: block; }
+  .v2-evidence { border-left: 0; border-top: 1px solid var(--line); }
+  .v2-shell .page-header { flex-direction: column; gap: 14px; padding: 22px 18px 18px; }
+  .v2-shell .page-actions { justify-content: flex-start; }
+  .v2-shell .topbar { padding-inline: 12px; gap: 8px; }
+  .v2-shell .content { padding-inline: 18px; }
+  .v2-import-intro { display: block; }
+  .v2-review-table { min-width: 0; table-layout: fixed; }
+  .v2-review-table th:first-child { width: 48%; }
+  .v2-review-table th:nth-child(2) { width: 26%; }
+  .v2-review-table td { overflow-wrap: anywhere; }
+  .v2-review-table .chip { max-width: 100%; padding: 4px 6px; }
+}
+@media (max-width: 480px) {
+  .v2-form .form-grid { grid-template-columns: 1fr; }
+  .v2-evidence { padding-inline: 12px; }
+  .v2-shell .evidence-step { padding-left: 44px; padding-right: 10px; }
+  .v2-shell .nav-button .icon { width: 17px; height: 17px; }
+  .v2-shell .topbar .button { padding-inline: 8px; font-size: 11px; }
+  .v2-shell .v2-environment { font-size: 9px; padding-inline: 5px; }
+}

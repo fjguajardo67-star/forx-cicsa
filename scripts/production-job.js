@@ -1,0 +1,38 @@
+import { readFile, stat } from 'node:fs/promises';
+import { createCloudRuntime } from '../src/server/cloud-runtime.js';
+import { OriginalRetention } from '../src/server/original-retention.js';
+import { createServerBackup, restoreServerBackup } from '../src/server/server-backups.js';
+import { initializeEmptyInstance } from '../src/server/initialize-instance.js';
+import { runScheduledMaintenance } from '../src/server/scheduled-maintenance.js';
+import { GenerationTextRetention } from '../src/server/generation-text-retention.js';
+import { initializeFromBackup } from '../src/server/initialize-from-backup.js';
+
+async function main() {
+const [job,...args]=process.argv.slice(2),flag=name=>{const index=args.indexOf(name);return index<0?undefined:args[index+1];};
+if(!['initialize','initialize-from-backup','backup','retention-preview','retention-apply','generation-text-preview','generation-text-apply',
+  'restore','scheduled-backup','scheduled-retention','scheduled-generation-text'].includes(job))throw new Error('Trabajo no permitido.');
+if(!process.env.FORX_CONFIG_PATH)throw new Error('Define FORX_CONFIG_PATH.');
+const readJson=async path=>{if(!path||(await stat(path)).size>64*1024*1024)throw new Error('Archivo requerido de hasta 64 MB.');return JSON.parse(await readFile(path,'utf8'));};
+const raw=await readJson(process.env.FORX_CONFIG_PATH);
+const runtime=await createCloudRuntime(raw,{allowUninitialized:['initialize','initialize-from-backup','restore'].includes(job),connectRecipeAI:false});
+try {
+  let result;
+  if(job==='initialize')result=await initializeEmptyInstance(runtime,{adminUid:flag('--admin'),confirmTarget:flag('--confirm')});
+  if(job==='initialize-from-backup') {
+    const path=flag('--backup');
+    if(!path||(await stat(path)).size>64*1024*1024)throw new Error('Respaldo requerido de hasta 64 MB.');
+    result=await initializeFromBackup(runtime,await readFile(path,'utf8'),{adminUid:flag('--admin'),confirmTarget:flag('--confirm'),confirmChecksum:flag('--checksum')});
+  }
+  if(job==='backup')result=await createServerBackup(runtime);
+  if(job==='retention-preview')result=await new OriginalRetention(runtime).preview();
+  if(job==='retention-apply')result=await new OriginalRetention(runtime).apply(await readJson(flag('--plan')),{confirmDigest:flag('--confirm')});
+  if(job==='generation-text-preview')result=await new GenerationTextRetention(runtime).preview();
+  if(job==='generation-text-apply')result=await new GenerationTextRetention(runtime).apply(await readJson(flag('--plan')),{confirmDigest:flag('--confirm')});
+  if(job==='restore')result=await restoreServerBackup(runtime,await readJson(flag('--backup')),{confirmChecksum:flag('--confirm')});
+  if(job==='scheduled-backup'||job==='scheduled-retention'||job==='scheduled-generation-text')result=await runScheduledMaintenance(runtime,job.slice(10));
+  console.log(JSON.stringify(result,null,2));if(result.failed)process.exitCode=1;
+} catch {
+  console.error(JSON.stringify({event:'job.failed',job,message:'Trabajo incompleto. Conservar plan y registros privados; no repetir con otro destino.'}));process.exitCode=1;
+} finally {await runtime.close();}
+}
+try {await main();}catch {console.error(JSON.stringify({event:'job.start_failed',message:'Trabajo no iniciado. Revisar configuración y aprobación sin modificar el destino.'}));process.exitCode=1;}

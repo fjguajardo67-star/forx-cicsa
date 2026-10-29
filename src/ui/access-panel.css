@@ -1,0 +1,36 @@
+.users-panel { min-width: 0; }
+.users-panel .section-head { flex-wrap: wrap; align-items: center; }
+.users-panel p { max-width: 72ch; line-height: 1.5; }
+.users-help { color: var(--ink-soft); }
+.users-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-block: 12px; }
+.users-actions .button, .users-table .button { min-height: 44px; }
+.users-editor { border-block: 1px solid var(--line); padding-block: 18px; margin-block: 18px; max-width: 760px; }
+.users-editor .field { font-size: 12px; }
+.users-editor .input { min-height: 44px; }
+.users-identity { overflow-wrap: anywhere; }
+.users-identity strong, .users-identity span { display: block; }
+.users-identity span { margin-top: 4px; color: var(--ink-soft); }
+.users-table { table-layout: fixed; }
+.users-table th:first-child { width: 50%; }
+.users-table td { vertical-align: middle; }
+.users-status:empty { display: none; }
+.users-status:focus, .users-panel h2:focus, .users-panel h3:focus { outline: none; }
+.users-mobile-label { display: none; }
+.admin-session { display: none; }
+@media (max-width: 1180px) {
+  .sidebar > .session-account, .sidebar > .session-context { display: none; }
+  .admin-session { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; padding-block: 20px; border-bottom: 1px solid var(--line); font-size: 12px; }
+  .admin-session > div { min-width: 0; overflow-wrap: anywhere; }
+  .admin-session p { margin-block: 4px 0; color: var(--ink-soft); }
+  .admin-session .button { min-height: 44px; }
+}
+@media (max-width: 620px) {
+  .users-actions > .button { flex: 1 1 150px; }
+  .users-table, .users-table tbody { display: block; }
+  .users-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .users-table tr { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--line); padding-block: 12px; gap: 8px; }
+  .users-table td { border: 0; padding: 0; }
+  .users-table td:first-child, .users-table td:last-child { grid-column: 1 / -1; }
+  .users-table td:last-child .button { width: 100%; }
+  .users-mobile-label { display: inline; }
+}

@@ -1,0 +1,69 @@
+/* Same operational layout and brand as dark mode. Only semantic colors change. */
+:root[data-theme="light"] {
+  color-scheme: light;
+  --paper: #f3f6fc;
+  --paper-strong: #ffffff;
+  --paper-muted: #e9effa;
+  --ink: #0b1b3a;
+  --ink-soft: #435575;
+  --line: #c9d5e6;
+  --line-dark: #7488a6;
+  --sage: #dcecf8;
+  --sage-2: #cbe3f4;
+  --blue: #006c80;
+  --amber: #8a5b00;
+  --rust: #b83224;
+  --rust-soft: #fcece8;
+  --green: #08734f;
+  --focus: #006c80;
+  --field: #ffffff;
+  --surface-hover: #e2ebf8;
+  --badge: #e1eaf7;
+  --success-soft: #e4f4ed;
+  --success-ink: #075b3e;
+  --warning-soft: #fff3d6;
+  --warning-ink: #704900;
+  --error-ink: #992b20;
+  --shadow: 0 14px 34px rgba(11, 27, 58, .16);
+}
+
+/* Selection text must also be readable on the amber fill in dark mode. */
+::selection { color: #201704; }
+
+:root[data-theme="light"] .topbar { background: var(--paper-strong); }
+:root[data-theme="light"] :is(.searchbox, .select, .input, .textarea) { background: var(--field); }
+:root[data-theme="light"] :is(input, textarea)::placeholder { color: var(--ink-soft); opacity: 1; }
+:root[data-theme="light"] .searchbox input { color: var(--ink); }
+:root[data-theme="light"] .avatar { background: #16cde5; }
+:root[data-theme="light"] .button:hover { background: var(--surface-hover); }
+:root[data-theme="light"] .button.primary:hover { background: var(--citrus-hover); }
+:root[data-theme="light"] :is(.illustrative, .count, .chip) { background: var(--badge); color: var(--ink); }
+:root[data-theme="light"] .data-table th { background: var(--paper-muted); color: var(--ink-soft); }
+:root[data-theme="light"] .data-table tbody tr { background: var(--paper-strong); }
+:root[data-theme="light"] .data-table tbody tr:hover { background: var(--surface-hover); }
+:root[data-theme="light"] .data-table tbody tr.selected { background: var(--sage); }
+:root[data-theme="light"] .row-select { background: var(--field); }
+:root[data-theme="light"] .row-select:checked { background: var(--focus); }
+:root[data-theme="light"] .row-select:checked::after { background: white; }
+:root[data-theme="light"] .supplier { color: var(--ink-soft); }
+:root[data-theme="light"] .row-menu:hover { background: var(--badge); }
+:root[data-theme="light"] .row-menu[data-remove-review]:hover { background: var(--rust-soft); }
+:root[data-theme="light"] :is(.evidence-panel, .evidence-actions, .detail-aside) { background: var(--paper-muted); }
+:root[data-theme="light"] .evidence-close:hover { background: var(--surface-hover); }
+:root[data-theme="light"] :is(.confidence, .chip.good) { background: var(--success-soft); color: var(--success-ink); }
+:root[data-theme="light"] .evidence-step { background: var(--paper-strong); }
+:root[data-theme="light"] .step-index { background: var(--focus); }
+:root[data-theme="light"] .field-grid { background: var(--paper); }
+:root[data-theme="light"] .formula { background: var(--paper-muted); color: var(--ink); }
+:root[data-theme="light"] .evidence-actions .button:not(.primary):not(.danger) { background: var(--paper-strong); }
+:root[data-theme="light"] .evidence-actions .button:not(.primary):not(.danger):hover { background: var(--surface-hover); }
+:root[data-theme="light"] :is(.drop-zone, .catalog-table) { background: var(--paper-strong); }
+:root[data-theme="light"] .drop-zone.dragging { background: var(--sage); }
+:root[data-theme="light"] .progress { background: var(--badge); }
+:root[data-theme="light"] .chip.warn { background: var(--warning-soft); color: var(--warning-ink); }
+:root[data-theme="light"] .chip.bad { background: var(--rust-soft); color: var(--error-ink); }
+:root[data-theme="light"] .notice { background: var(--success-soft); border-color: var(--green); color: var(--success-ink); }
+:root[data-theme="light"] .notice.warning { background: var(--warning-soft); border-color: var(--amber); color: var(--warning-ink); }
+:root[data-theme="light"] .notice.error { background: var(--rust-soft); border-color: var(--rust); color: var(--error-ink); }
+:root[data-theme="light"] .loading-lines span { background-image: linear-gradient(90deg, var(--paper-muted), var(--line), var(--paper-muted)); }
+/* The navy sidebar and white-on-dark notifications deliberately keep their ink. */

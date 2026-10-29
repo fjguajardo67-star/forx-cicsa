@@ -1,0 +1,39 @@
+/* Local integration fixes; the incumbent design tokens and layout remain. */
+.topbar { grid-template-columns: minmax(260px, 1fr) auto auto auto; }
+.theme-toggle { min-height: 44px; }
+.sidebar { --focus: #16cde5; }
+.sidebar .session-context { color: #9eb0cf; }
+@media (max-width: 1180px) {
+  .theme-toggle { width: 44px; padding: 0; }
+  .theme-toggle [data-theme-label] { display: none; }
+}
+@media (max-width: 900px) {
+  .topbar { grid-template-columns: minmax(0, 1fr) auto auto auto; }
+}
+@media (max-width: 620px) {
+  .topbar { grid-template-columns: minmax(0, 1fr) auto auto; }
+}
+.rules-panel, .backup-panel { min-width: 0; }
+.rules-scroll { overflow-x: auto; }
+.rules-scroll table { min-width: 680px; }
+.rules-panel .form-actions { flex-wrap: wrap; }
+.backup-panel input[type="file"] { max-width: 100%; }
+.backup-preview { margin-top: 20px; }
+.backup-panel .field-grid { margin-block: 16px; }
+.import-page .section-head { flex-wrap: wrap; }
+.import-page .catalog-table { max-width: 100%; overflow-x: auto; }
+.import-page .file-input { left: 0; width: 1px; height: 1px; padding: 0; border: 0; overflow: hidden; clip-path: inset(50%); }
+#import-policy { font-size: 12px; line-height: 1.5; overflow-wrap: anywhere; }
+@media (max-width: 900px) {
+  .import-page .batch-summary > div:last-child { grid-column: 1 / -1; }
+  .sidebar > .session-context { display: none; }
+  .backup-panel .form-actions { flex-wrap: wrap; }
+}
+@media (min-width: 901px) and (max-width: 1180px) {
+  .review-titlebar { grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto auto; align-content: end; gap: 14px; }
+  .review-titlebar > div:first-child { display: contents; }
+  .review-titlebar h1 { grid-column: 1; grid-row: 1; margin: 0; }
+  .review-sort { grid-column: 2; grid-row: 1; max-width: 180px; margin: 0; }
+  .review-tabs { grid-column: 1 / -1; grid-row: 2; overflow-x: auto; }
+  .review-tab { white-space: nowrap; flex: 0 0 auto; }
+}
