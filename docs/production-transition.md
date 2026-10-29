@@ -1,137 +1,83 @@
-# Reemplazo de FORX — 29 de octubre de 2026
+# Reemplazo de FORX
 
-El repositorio canónico elegido por Francisco es `fjguajardo67-star/forx-cicsa`;
-la URL sigue siendo `https://menu-cicsa.cicsacomedores.com.mx`. No se crea un
-acceso paralelo definitivo. MiDespensa queda integrado y administra el banco de
-precios que utilizan recetas y menús. Egresos queda fuera.
+El repositorio canónico es `fjguajardo67-star/forx-cicsa` y el acceso habitual
+sigue siendo `https://menu-cicsa.cicsacomedores.com.mx`. MiDespensa administra el
+banco de precios que utilizan recetas y menús dentro de la misma aplicación.
+La nueva implementación no consulta Egresos ni el backend del FORX anterior.
 
-## Procedencia y preservación
+## Procedencia
 
-La rama parte del FORX anterior `a274255f92b0dbd1b0cf6923976c90e1c1cdf955` y
-reemplaza sus archivos por el desarrollo integrado
-`cc16f2c3a6997d16b77abc03290afa0b48c31fa1`, anteriormente guardado localmente en
-`midespensa-forx`, rama `codex/forx-v2-xml-catalog`. El historial de FORX conserva
-la versión anterior; no se han modificado sus datos, reglas ni servicios.
-El cambio se prepara en `codex/forx-integrated-production`, sin publicar desde esa rama.
+La integración procede del desarrollo local
+`cc16f2c3a6997d16b77abc03290afa0b48c31fa1`. El historial del repositorio conserva
+la versión anterior `a274255f92b0dbd1b0cf6923976c90e1c1cdf955` para reversión.
+Los datos originales se preservan. Su cierre de acceso se realiza después de
+comprobar el reemplazo en la URL habitual.
 
-## Correcciones de backend
+## Correcciones y límites del backend
 
-- RFC receptor fijo en el parser: un parámetro no permite sustituir CICSA.
+- El parser fija el RFC receptor de CICSA y rechaza sustituirlo por parámetro.
 - Las facturas no elegibles se rechazan antes de cuarentena o deduplicación.
-  El servidor conserva solo contador del lote y una decisión genérica; no guarda
-  XML, UUID, proveedor ni conceptos nuevos de esos archivos. No borra históricos.
-- Plazo real de operación de 110 segundos. Una respuesta 503 no promete deshacer
-  transacciones confirmadas. El cupo de concurrencia queda ocupado hasta que el
-  trabajo subyacente termine; una importación deja de iniciar el siguiente archivo
-  cuando vence el plazo. El cliente debe consultar el estado antes de repetir.
-- Inicialización desde respaldo v3 únicamente mediante trabajo del operador,
-  con checksum, destino exacto y administrador Google comprobado. Admite reanudar
-  la misma carga; una base activa o distinta no se rellena ni se sobrescribe.
-- Dependencias actualizadas mediante parches compatibles, sin `audit fix --force`.
+  Solo se conserva el contador del lote y una decisión genérica; no XML, UUID,
+  proveedor o conceptos nuevos de esos archivos. No se borran históricos.
+- Cada operación tiene un plazo real de ejecución. Una respuesta vencida no
+  promete deshacer transacciones confirmadas y mantiene ocupado el cupo hasta
+  que termine el trabajo. El cliente indica actualizar antes de repetir.
+- La carga inicial exige respaldo v3 con checksum, destino vacío y administrador
+  Google verificado. Reanuda únicamente la misma carga y no sobrescribe una
+  base activa. No restaura XML originales ni cuentas.
+- El API exige Google y un rol vigente para acceder a los datos. No existe una
+  sesión de demostración en producción. La ruta de salud es pública.
+- Las dependencias se actualizaron sin `audit fix --force`.
+- La lectura de colecciones completas requiere revisar capacidad al crecer el
+  volumen. Las pruebas actuales no certifican carga masiva ni alta disponibilidad.
 
 ## Empaquetado y publicación
 
-`Dockerfile` prepara el API Node 24 con dependencias de producción y usuario sin
-privilegios. No copia archivos de entorno, respaldos, credenciales ni configuración
-real. Proporcionar la configuración no secreta con `FORX_CONFIG_JSON` o montar
-un archivo y definir `FORX_CONFIG_PATH`; nunca ambos. La identidad
-administrada, permisos, secreto de IA y activación de recursos se configuran fuera
-de la imagen. El API y los trabajos pueden usar la misma imagen, con identidades
-y comandos diferentes.
+`Dockerfile` construye un API Node 24 con dependencias de producción y usuario sin
+privilegios. La imagen no contiene archivos de entorno, respaldos ni credenciales.
+La configuración no secreta se proporciona con `FORX_CONFIG_JSON` o
+`FORX_CONFIG_PATH`, nunca ambos. Los permisos de las identidades administradas
+se configuran fuera de la imagen.
 
-Para la interfaz, `npm run build:production` exige Node 24 y la configuración
-pública de Google/API mediante `FORX_CLIENT_CONFIG_PATH` o `FORX_PUBLIC_CONFIG`.
-Rechaza un entorno u origen distinto del destino aprobado y conserva `dist/CNAME`.
-El workflow `publish-pages.yml` es manual, solo admite `main`, exige CI completo
-aprobado para ese mismo commit y confirmación de aceptación del backend.
-Publica únicamente `dist`; no publica el servidor, fuentes o configuración privada.
-El entorno GitHub `production` debe tener protección de revisión y la variable
-`FORX_PUBLIC_CONFIG`. Pages deberá pasar de publicación de raíz de `main` a
-GitHub Actions en la ventana final; no cambiar esa configuración mientras sirve
-la aplicación anterior.
+`npm run build:production` exige Node 24 y configuración pública validada mediante
+`FORX_CLIENT_CONFIG_PATH` o `FORX_PUBLIC_CONFIG`. Rechaza un destino distinto de
+la URL habitual y conserva `dist/CNAME`. El navegador no recibe claves privadas.
+El workflow manual `publish-pages.yml` solo admite `main`, exige CI aprobado
+para el mismo commit y aceptación del backend, y publica únicamente `dist`.
+El entorno de publicación se limita a `main`. Pages debe usar GitHub Actions
+antes de fusionar la sustitución, conservando el despliegue previo hasta que el
+nuevo artefacto esté listo. Los valores operativos del despliegue se conservan
+fuera del repositorio público.
 
-## Recursos pendientes de configurar
+## Piloto autorizado
 
-Francisco eligió un proyecto propio para FORX v2. Se creó `forx-v2-cicsa-prod`
-(nombre visible `FORX v2 CICSA`) y se registró `FORX v2 Web`, app
-`1:990247980647:web:ae53c302ebe1a5fc490ec2`. Se verificó `billingEnabled=false`.
-No se crearon base, buckets, API ni tareas. El staging existente
-`forx-midespensa-staging` mantiene MiDespensa separado en `(default)`, región
-`us-central1`; se verificó que no tiene facturación habilitada. No se utilizará
-esa base ni sus usuarios para inicializar automáticamente FORX v2.
+El piloto usa un proyecto propio, una base exclusiva y buckets privados separados
+para XML, respaldos y compilación. Las identidades del API, inicializador,
+compilador, respaldo, retención y programador tienen funciones separadas.
+El respaldo mantiene acceso de solo lectura a la base y verifica la copia guardada.
+Los XML nuevos tienen retención de dos meses. Las copias derivadas excluyen XML
+y cuentas. La recuperación se ensayó en emuladores y copia local aislada; todavía
+no se ha ensayado una restauración en otra base cloud.
 
-Configuración mínima propuesta, pendiente de presupuesto y aceptación cloud:
+Se autorizó máximo una instancia del API y cero instancias en reposo, alertas de
+gasto y mantener desactivada la IA de pago. Las alertas no detienen los cargos.
+`release:preflight -- --pilot-without-ai` exige las protecciones del destino,
+Google, retención, respaldo, configuración cliente/API y Git limpio; prohíbe
+habilitar IA. `--candidate` conserva los requisitos del lanzamiento completo.
 
-- Proyecto nuevo y base nombrada exclusiva, nunca `(default)` ni Egresos.
-- Región `us-central1`, por confirmar antes de crear datos.
-- API Cloud Run: mínimo cero instancias, máximo una, concurrencia cuatro,
-  1 CPU, 1 GiB de memoria y plazo externo de 300 segundos; revisar por volumen.
-- Dos buckets privados separados: XML con vencimiento original de dos meses,
-  sin versiones/soft-delete que prolonguen ese plazo; respaldos con política
-  propia que todavía debe acordarse.
-- Identidades distintas para API, inicialización, retención y respaldos; permisos
-  mínimos y reglas de producción cerradas al acceso directo.
-- Acceso Google y administrador inicial con UID verificado. No guardar claves
-  privadas en GitHub Pages ni en variables VITE.
-- Tareas de respaldo y retención, alertas operativas y de gasto. Un presupuesto
-  de alertas cloud no es un límite duro de facturación.
+Se seleccionaron catálogo, recetas y compras del respaldo aprobado, excluyendo
+los menús de prueba. La carga verifica los registros completos antes de activar
+la base. Los precios pendientes de revisión conservan esa condición y los costos
+sin evidencia suficiente siguen mostrándose como no verificables.
 
-No se vincula facturación, activa Blaze ni despliegan recursos con costo por
-el hecho de crear el proyecto. Falta revisar cuenta de facturación y presupuesto.
-La generación real de IA sigue desactivada hasta configurar su proyecto, acceso
-y límites aprobados; la imagen y los trabajos no incluyen una clave.
+## Aceptación y corte
 
-## Traslado y aceptación
+Antes de publicar se comprueban Google, catálogo y navegación en una URL temporal,
+las restricciones HTTP reales y una ejecución de respaldo y retención. Después
+se comprueba el dominio habitual y se cierra de forma reversible el acceso del
+backend exclusivo anterior. Se conservan datos, reglas previas e historial para
+reversión. No se modifican Egresos ni recursos compartidos.
 
-1. Descargar un respaldo completo nuevo desde la copia en la que se continuará
-   trabajando; elegir datos reales y separar registros sintéticos. Conservar
-   checksum y copia privada fuera del repositorio.
-2. Ensayar la carga en un destino vacío y verificar cantidades, identidades,
-   vínculos y costos. `initialize-from-backup` no restaura XML ni cuentas.
-   No ejecutar antes `initialize`, pues esa opción inicializa otra base distinta.
-3. Comando preparado para el trabajo privado, todavía no ejecutado sobre cloud:
-
-```text
-npm run job:production -- initialize-from-backup --backup /ruta/privada/respaldo-v3.json --admin UID --confirm PROYECTO/BASE --checksum CHECKSUM
-```
-
-En un trabajo administrado puede usarse exclusivamente
-`gs://BUCKET_DE_RESPALDOS/bootstrap/initial-data.json` como fuente de esa carga.
-Se comprueba tamaño y se descarga una generación concreta antes de validar checksum.
-El permiso de lectura del inicializador debe limitarse a ese objeto; no dar acceso
-al bucket de compilación ni incorporar el respaldo a una imagen o al repositorio.
-
-4. Probar Google, XML válido/ajeno, precio, receta, menú real, exportación,
-   reapertura desde otro equipo, respaldo y recuperación. Ejecutar backend,
-   reglas, recuperación y navegador contra el candidato; comprobar IAM y
-   políticas reales de Storage además de los emuladores.
-5. Conservar referencia de reversión del FORX anterior. Publicar el frontend
-   aceptado y comprobar la URL habitual antes de cerrar las escrituras del anterior.
-6. Inventariar y deshabilitar solamente recursos exclusivos del FORX anterior.
-   Reemplazar Pages no revoca pestañas ni permisos existentes. No tocar Egresos,
-   recursos compartidos o de propiedad incierta ni eliminar el CNAME del reemplazo.
-
-No se considera terminada la transición hasta comprobar la aplicación nueva en
-la URL habitual y el cierre de escrituras del sistema anterior.
-
-## Piloto aprobado y recursos creados — 29 de octubre
-
-Francisco autorizó vincular `Pago de Firebase` y desplegar el piloto con máximo
-una instancia y cero instancias en reposo. Autorizó expresamente mantener IA de
-pago desactivada y trasladar catálogo, recetas y compras excluyendo los dos menús
-de prueba. El presupuesto de alertas se configuró en 180 MXN mensuales (la cuenta
-factura en MXN), con umbrales 50 %, 90 % y 100 %. Las alertas no son un corte
-automático de gasto. El proyecto está vinculado a esa cuenta.
-
-Se crearon `forx-production-cicsa` en `us-central1`, con protección de borrado,
-y los buckets privados `forx-v2-cicsa-prod-originals` y
-`forx-v2-cicsa-prod-backups`. Se creó el registro Artifact Registry `forx` y
-se inicializó Authentication. Esto no acredita todavía un API desplegado,
-permisos IAM aceptados, usuarios o datos cargados ni cambio del CNAME.
-
-El piloto sin IA se comprueba con `release:preflight -- --pilot-without-ai`.
-Esa opción exige las mismas protecciones de destino, Google, retención de XML,
-respaldo, configuración cliente/API y Git limpio. Prohíbe habilitar IA y etiqueta
-el manifiesto como `pilotWithoutAI:true`. `--candidate` conserva el requisito de
-IA aprobada para la publicación completa. Esta excepción deriva de la aprobación
-específica del piloto y no cambia los requisitos del lanzamiento completo.
+La transición solo se considera terminada al verificar el reemplazo en el dominio
+habitual y el cierre de acceso del sistema anterior. El acta operativa privada
+registra los resultados y las referencias de despliegue.
