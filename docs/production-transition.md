@@ -106,3 +106,25 @@ npm run job:production -- initialize-from-backup --backup /ruta/privada/respaldo
 
 No se considera terminada la transición hasta comprobar la aplicación nueva en
 la URL habitual y el cierre de escrituras del sistema anterior.
+
+## Piloto aprobado y recursos creados — 29 de octubre
+
+Francisco autorizó vincular `Pago de Firebase` y desplegar el piloto con máximo
+una instancia y cero instancias en reposo. Autorizó expresamente mantener IA de
+pago desactivada y trasladar catálogo, recetas y compras excluyendo los dos menús
+de prueba. El presupuesto de alertas se configuró en 180 MXN mensuales (la cuenta
+factura en MXN), con umbrales 50 %, 90 % y 100 %. Las alertas no son un corte
+automático de gasto. El proyecto está vinculado a esa cuenta.
+
+Se crearon `forx-production-cicsa` en `us-central1`, con protección de borrado,
+y los buckets privados `forx-v2-cicsa-prod-originals` y
+`forx-v2-cicsa-prod-backups`. Se creó el registro Artifact Registry `forx` y
+se inicializó Authentication. Esto no acredita todavía un API desplegado,
+permisos IAM aceptados, usuarios o datos cargados ni cambio del CNAME.
+
+El piloto sin IA se comprueba con `release:preflight -- --pilot-without-ai`.
+Esa opción exige las mismas protecciones de destino, Google, retención de XML,
+respaldo, configuración cliente/API y Git limpio. Prohíbe habilitar IA y etiqueta
+el manifiesto como `pilotWithoutAI:true`. `--candidate` conserva el requisito de
+IA aprobada para la publicación completa. Esta excepción deriva de la aprobación
+específica del piloto y no cambia los requisitos del lanzamiento completo.

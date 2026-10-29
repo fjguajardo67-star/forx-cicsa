@@ -6,18 +6,19 @@ import { releasePreflight, validateReleaseConfiguration, validateReleaseClientCo
 
 async function main() {
   const mode = process.argv[2];
-  if (!['--example', '--candidate'].includes(mode) || process.argv.length !== 3)
-    throw new Error('Usa --example o --candidate.');
+  if (!['--example', '--candidate', '--pilot-without-ai'].includes(mode) || process.argv.length !== 3)
+    throw new Error('Usa --example, --candidate o --pilot-without-ai.');
+  const candidate=mode!=='--example',pilotWithoutAI=mode==='--pilot-without-ai';
   const root = fileURLToPath(new URL('..', import.meta.url));
   const configPath = process.env.FORX_CONFIG_PATH;
   if (!configPath) throw new Error('Define FORX_CONFIG_PATH.');
   const approvedPolicy = JSON.parse(await readFile(path.join(root, 'config/recipe-ai-pilot.policy.json'), 'utf8'));
   const clientConfigPath = process.env.FORX_CLIENT_CONFIG_PATH;
   let publicConfig;
-  if (mode === '--candidate') {
+  if (candidate) {
     if (!process.versions.node.startsWith('24.')) throw new Error('El candidato requiere Node 24 LTS.');
     if (!clientConfigPath) throw new Error('Define FORX_CLIENT_CONFIG_PATH para el build público del candidato.');
-    const server = validateReleaseConfiguration(JSON.parse(await readFile(configPath, 'utf8')), approvedPolicy, { candidate: true });
+    const server = validateReleaseConfiguration(JSON.parse(await readFile(configPath, 'utf8')), approvedPolicy, { candidate: true, pilotWithoutAI });
     publicConfig = JSON.parse(await readFile(clientConfigPath, 'utf8'));
     validateReleaseClientConfiguration(publicConfig, server);
     // Rebuild from this checkout immediately before fingerprinting dist.
@@ -28,7 +29,7 @@ async function main() {
   const commit = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' }).trim();
   const clean = !execFileSync('git', ['status', '--porcelain'], { cwd: root, encoding: 'utf8' }).trim();
   console.log(JSON.stringify(await releasePreflight({ root, configPath, clientConfigPath, approvedPolicy,
-    candidate: mode === '--candidate', commit, clean }), null, 2));
+    candidate, pilotWithoutAI, commit, clean }), null, 2));
 }
 main().catch(() => {
   console.error(JSON.stringify({ event: 'release.preflight_failed', message: 'El artefacto no está validado. No publicar ni interpretar esta comprobación como aprobación externa.' }));

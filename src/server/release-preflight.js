@@ -25,7 +25,7 @@ function rejectSecretFields(value) {
   }
 }
 
-export function validateReleaseConfiguration(raw, approvedPolicy, { candidate = false } = {}) {
+export function validateReleaseConfiguration(raw, approvedPolicy, { candidate = false, pilotWithoutAI = false } = {}) {
   const config = deploymentConfig(raw, {});
   if (!candidate) return config;
   rejectSecretFields(raw);
@@ -34,12 +34,13 @@ export function validateReleaseConfiguration(raw, approvedPolicy, { candidate = 
     || [config.projectId, config.databaseId, config.originalsBucket, config.backupsBucket, config.apiOrigin, ...config.origins]
       .some(value => /pendiente|\.invalid\b/i.test(value))) fail('destinos de ejemplo no se pueden publicar.');
   if (!config.maintenance.retentionEnabled || !config.maintenance.backupsEnabled
-    || !config.maintenance.generationTextRetentionEnabled)
+    || (!pilotWithoutAI && !config.maintenance.generationTextRetentionEnabled))
     fail('retención de XML y propuestas, y respaldo programables deben tener aprobación explícita.');
   if (config.signInProvider !== 'google.com') fail('el acceso publicado debe usar Google.');
-  if (!config.recipeGeneration.enabled || !isDeepStrictEqual(config.recipeGeneration.budgetPolicy, approvedPolicy)
+  if (pilotWithoutAI && config.recipeGeneration.enabled) fail('el piloto aprobado no admite activar consumo de IA.');
+  if (!pilotWithoutAI && (!config.recipeGeneration.enabled || !isDeepStrictEqual(config.recipeGeneration.budgetPolicy, approvedPolicy)
     || config.recipeGeneration.model !== approvedPolicy.model
-    || config.recipeGeneration.maxOutputTokens !== approvedPolicy.maxOutputTokens)
+    || config.recipeGeneration.maxOutputTokens !== approvedPolicy.maxOutputTokens))
     fail('la generación real requiere la política aprobada exacta.');
   if (config.environment === 'production' && !config.origins.includes('https://menu-cicsa.cicsacomedores.com.mx'))
     fail('el origen FORX confirmado no figura en producción.');
@@ -74,13 +75,13 @@ async function hashTree(root, relative) {
 
 // Read-only evidence. No account, bucket, DNS, billing or deploy operation is
 // performed here. External approvals remain separate from this static result.
-export async function releasePreflight({ root, configPath, clientConfigPath, approvedPolicy, candidate = false, commit, clean }) {
+export async function releasePreflight({ root, configPath, clientConfigPath, approvedPolicy, candidate = false, pilotWithoutAI = false, commit, clean }) {
   if (!root || !configPath || !/^[a-f0-9]{40}$/.test(commit || '') || typeof clean !== 'boolean')
     fail('faltan raíz, configuración o estado de Git.');
   const resolved = path.resolve(configPath), repo = path.resolve(root);
   if (candidate && !clean) fail('el candidato requiere un commit sin cambios locales.');
   const raw = JSON.parse(await readFile(resolved, 'utf8'));
-  const config = validateReleaseConfiguration(raw, approvedPolicy, { candidate });
+  const config = validateReleaseConfiguration(raw, approvedPolicy, { candidate, pilotWithoutAI });
   let client = null, clientBytes = null;
   if (candidate) {
     if (!clientConfigPath) fail('el candidato requiere la configuración pública exacta usada para compilar el navegador.');
@@ -94,7 +95,7 @@ export async function releasePreflight({ root, configPath, clientConfigPath, app
   files.push({ path: 'deployment-config', sha256: sha256(await readFile(resolved)) });
   if (clientBytes) files.push({ path: 'client-config', sha256: sha256(clientBytes) });
   files.sort((a, b) => a.path.localeCompare(b.path));
-  return { format: 'forx-release-preflight', version: 1, candidate, commit, clean,
+  return { format: 'forx-release-preflight', version: 1, candidate, pilotWithoutAI, commit, clean,
     target: `${config.projectId}/${config.databaseId}`, environment: config.environment,
     ...(client ? { appOrigin: client.appOrigin, apiOrigin: client.apiOrigin } : {}),
     files, artifactDigest: sha256(JSON.stringify(files)), network: false, deployed: false,

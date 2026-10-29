@@ -43,6 +43,14 @@ test('ejemplo inactivo se puede inspeccionar sin convertirse en candidato', () =
   expect(() => validateReleaseConfiguration(example, policy, { candidate: true })).toThrow();
 });
 
+test('el piloto sin IA es explícito, conserva destino y respaldos y prohíbe activar consumo',()=>{
+  const pilot={...candidate,recipeGeneration:{enabled:false},maintenance:{...candidate.maintenance,generationTextRetentionEnabled:false}};
+  expect(()=>validateReleaseConfiguration(pilot,policy,{candidate:true})).toThrow();
+  expect(validateReleaseConfiguration(pilot,policy,{candidate:true,pilotWithoutAI:true}).recipeGeneration.enabled).toBe(false);
+  expect(()=>validateReleaseConfiguration(candidate,policy,{candidate:true,pilotWithoutAI:true})).toThrow();
+  expect(()=>validateReleaseConfiguration({...pilot,maintenance:{...pilot.maintenance,backupsEnabled:false}},policy,{candidate:true,pilotWithoutAI:true})).toThrow();
+});
+
 test('candidato liga navegador y backend; rechaza proyecto, entorno, origen y campos extra', () => {
   expect(validateReleaseClientConfiguration(client, candidate)).toMatchObject({ appOrigin: client.appOrigin,
     apiOrigin: client.apiOrigin, firebase: { projectId: fixture.projectId } });
