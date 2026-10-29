@@ -29,7 +29,9 @@ export function createAuthenticatedApi({endpoint, auth, user, onUnauthorized=()=
         assertCurrent();
         if (!response.ok) {
           if (response.status === 401) onUnauthorized();
-          throw Object.assign(new Error(errors[response.status] || 'No se pudo completar la operación. Inténtalo más tarde.'),
+          throw Object.assign(new Error(value.outcomeUncertain===true
+            ? 'La operación venció sin confirmar su resultado. Actualiza los datos antes de repetir; una parte puede estar guardada.'
+            : errors[response.status] || 'No se pudo completar la operación. Inténtalo más tarde.'),
             {status:response.status, requestId:typeof value.requestId==='string' && /^[a-f0-9-]{36}$/.test(value.requestId) ? value.requestId : undefined});
         }
         return value.result;

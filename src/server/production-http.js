@@ -67,7 +67,10 @@ export function createProductionServer(runtime,{log=entry=>console.log(JSON.stri
     } catch(error) {
       status=Object.hasOwn(messages,error?.status)?error.status:500;
       if(status===429)res.setHeader('Retry-After','60');
-      res.writeHead(status);res.end(JSON.stringify({error:messages[status],requestId}));
+      const uncertain=error?.outcomeUncertain===true;
+      res.writeHead(status);res.end(JSON.stringify({
+        error:uncertain?'La operación venció sin confirmar su resultado. Actualiza los datos antes de repetir.':messages[status],
+        requestId,...(uncertain?{outcomeUncertain:true}:{})}));
     } finally {if(acquired&&!workStarted)inFlight--;finish();}
   });
   server.requestTimeout=120000;server.headersTimeout=15000;server.keepAliveTimeout=5000;

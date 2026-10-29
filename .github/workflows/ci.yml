@@ -40,3 +40,5 @@ jobs:
         run: npx playwright install --with-deps chromium
       - name: Verificar flujo completo
         run: npm run test:e2e
+      - name: Verificar imagen del backend sin secretos ni despliegue
+        run: docker build --tag forx-backend:ci .

@@ -30,7 +30,7 @@ test('la API corta una autenticación lenta y no ejecuta escrituras después del
   try {
     const request=post();await entered;
     const response=await request;
-    expect(response.status).toBe(503);await response.text();
+    expect(response.status).toBe(503);expect(await response.json()).toMatchObject({outcomeUncertain:true});
     const blocked=await post();expect(blocked.status).toBe(429);await blocked.text();
     expect(reservations).toBe(0);
     releaseAuth();

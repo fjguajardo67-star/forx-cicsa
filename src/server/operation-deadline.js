@@ -8,7 +8,7 @@ export async function withOperationDeadline(action, { timeoutMs, onSettled = () 
   const timeout = new Promise((_, reject) => {
     timer = setTimeout(() => {
       controller.abort();
-      reject(Object.assign(new Error('Operation deadline exceeded; outcome may be partial.'), { status: 503 }));
+      reject(Object.assign(new Error('Operation deadline exceeded; outcome may be partial.'), { status: 503, outcomeUncertain: true }));
     }, timeoutMs);
   });
   try { return await Promise.race([settled, timeout]); }
