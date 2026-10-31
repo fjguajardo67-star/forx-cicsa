@@ -34,7 +34,8 @@ test('vista previa: detalle, filtros, copias, XSS, errores y cero escrituras',as
   await expect(page.locator('[data-preview-row]')).toHaveCount(4);
   await page.getByLabel('Mostrar registros').selectOption('grill');
   await page.getByRole('button',{name:'Ver detalle de Ensalada de prueba',exact:true}).click();
-  await expect(page.locator('#legacy-detail')).toContainText('equivalencia confirmada');
+  await expect(page.locator('#legacy-detail')).toContainText('se conserva como porción pendiente');
+  await expect(page.locator('#legacy-detail')).toContainText('confirma gramos antes de vincular y costear');
   await expect(page.locator('#legacy-detail')).toContainText('Contenedor');
   await page.getByLabel('Mostrar registros').selectOption('all');
   await page.getByLabel('Buscar en el respaldo').fill('<img');
