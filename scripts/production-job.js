@@ -49,8 +49,9 @@ try {
   }
   if(job==='scheduled-backup'||job==='scheduled-retention'||job==='scheduled-generation-text')result=await runScheduledMaintenance(runtime,job.slice(10));
   console.log(JSON.stringify(result,null,2));if(result.failed)process.exitCode=1;
-} catch {
-  console.error(JSON.stringify({event:'job.failed',job,message:'Trabajo incompleto. Conservar plan y registros privados; no repetir con otro destino.'}));process.exitCode=1;
+} catch(error) {
+  console.error(JSON.stringify({event:'job.failed',job,message:'Trabajo incompleto. Conservar plan y registros privados; no repetir con otro destino.',
+    ...(job==='recipe-correction'?{controlledReason:error?.message || 'Fallo sin detalle controlado.'}:{})}));process.exitCode=1;
 } finally {await runtime.close();}
 }
 try {await main();}catch {console.error(JSON.stringify({event:'job.start_failed',message:'Trabajo no iniciado. Revisar configuración y aprobación sin modificar el destino.'}));process.exitCode=1;}
