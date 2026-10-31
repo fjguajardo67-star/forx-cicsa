@@ -39,12 +39,20 @@ try {
   if(job==='generation-text-apply')result=await new GenerationTextRetention(runtime).apply(await readJson(flag('--plan')),{confirmDigest:flag('--confirm')});
   if(job==='restore')result=await restoreServerBackup(runtime,await readJson(flag('--backup')),{confirmChecksum:flag('--confirm')});
   if(job==='recipe-correction'){
-    const planPath=flag('--plan'),prefix=`gs://${runtime.config.backupsBucket}/corrections/`;
-    if(!planPath?.startsWith(prefix)||!planPath.endsWith('.json'))throw new Error('Plan privado de corrección requerido en el bucket autorizado.');
-    const objectPath=planPath.slice(`gs://${runtime.config.backupsBucket}/`.length),file=runtime.backupsBucket.file(objectPath);
-    const metadata=(await file.getMetadata())[0];
-    if(!/^\d+$/.test(String(metadata.generation))||Number(metadata.size)>65536)throw new Error('Plan de corrección inválido.');
-    const source=(await runtime.backupsBucket.file(objectPath,{generation:metadata.generation}).download())[0].toString('utf8');
+    const planPath=flag('--plan'),encoded=process.env.FORX_RECIPE_CORRECTION_BASE64;let source;
+    if(planPath==='env'){
+      if(!encoded||encoded.length>90000||!/^[A-Za-z0-9+/]+={0,2}$/.test(encoded))throw new Error('Plan privado codificado requerido.');
+      const bytes=Buffer.from(encoded,'base64');
+      if(bytes.length>65536||bytes.toString('base64')!==encoded)throw new Error('Plan privado codificado inválido.');
+      source=bytes.toString('utf8');
+    }else{
+      const prefix=`gs://${runtime.config.backupsBucket}/corrections/`;
+      if(!planPath?.startsWith(prefix)||!planPath.endsWith('.json'))throw new Error('Plan privado de corrección requerido en el bucket autorizado.');
+      const objectPath=planPath.slice(`gs://${runtime.config.backupsBucket}/`.length),file=runtime.backupsBucket.file(objectPath);
+      const metadata=(await file.getMetadata())[0];
+      if(!/^\d+$/.test(String(metadata.generation))||Number(metadata.size)>65536)throw new Error('Plan de corrección inválido.');
+      source=(await runtime.backupsBucket.file(objectPath,{generation:metadata.generation}).download())[0].toString('utf8');
+    }
     result=await applyRecipeCorrection(runtime,JSON.parse(source),{confirmDigest:flag('--confirm')});
   }
   if(job==='scheduled-backup'||job==='scheduled-retention'||job==='scheduled-generation-text')result=await runScheduledMaintenance(runtime,job.slice(10));
