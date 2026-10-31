@@ -7,11 +7,12 @@ import { runScheduledMaintenance } from '../src/server/scheduled-maintenance.js'
 import { GenerationTextRetention } from '../src/server/generation-text-retention.js';
 import { initializeFromBackup } from '../src/server/initialize-from-backup.js';
 import { readRuntimeConfiguration } from '../src/server/runtime-config-input.js';
+import { applyRecipeCorrection } from '../src/server/recipe-correction.js';
 
 async function main() {
 const [job,...args]=process.argv.slice(2),flag=name=>{const index=args.indexOf(name);return index<0?undefined:args[index+1];};
 if(!['initialize','initialize-from-backup','backup','retention-preview','retention-apply','generation-text-preview','generation-text-apply',
-  'restore','scheduled-backup','scheduled-retention','scheduled-generation-text'].includes(job))throw new Error('Trabajo no permitido.');
+  'restore','scheduled-backup','scheduled-retention','scheduled-generation-text','recipe-correction'].includes(job))throw new Error('Trabajo no permitido.');
 const readJson=async path=>{if(!path||(await stat(path)).size>64*1024*1024)throw new Error('Archivo requerido de hasta 64 MB.');return JSON.parse(await readFile(path,'utf8'));};
 const raw=await readRuntimeConfiguration();
 const runtime=await createCloudRuntime(raw,{allowUninitialized:['initialize','initialize-from-backup','restore'].includes(job),connectRecipeAI:false});
@@ -37,6 +38,15 @@ try {
   if(job==='generation-text-preview')result=await new GenerationTextRetention(runtime).preview();
   if(job==='generation-text-apply')result=await new GenerationTextRetention(runtime).apply(await readJson(flag('--plan')),{confirmDigest:flag('--confirm')});
   if(job==='restore')result=await restoreServerBackup(runtime,await readJson(flag('--backup')),{confirmChecksum:flag('--confirm')});
+  if(job==='recipe-correction'){
+    const planPath=flag('--plan'),prefix=`gs://${runtime.config.backupsBucket}/corrections/`;
+    if(!planPath?.startsWith(prefix)||!planPath.endsWith('.json'))throw new Error('Plan privado de corrección requerido en el bucket autorizado.');
+    const objectPath=planPath.slice(`gs://${runtime.config.backupsBucket}/`.length),file=runtime.backupsBucket.file(objectPath);
+    const metadata=(await file.getMetadata())[0];
+    if(!/^\d+$/.test(String(metadata.generation))||Number(metadata.size)>65536)throw new Error('Plan de corrección inválido.');
+    const source=(await runtime.backupsBucket.file(objectPath,{generation:metadata.generation}).download())[0].toString('utf8');
+    result=await applyRecipeCorrection(runtime,JSON.parse(source),{confirmDigest:flag('--confirm')});
+  }
   if(job==='scheduled-backup'||job==='scheduled-retention'||job==='scheduled-generation-text')result=await runScheduledMaintenance(runtime,job.slice(10));
   console.log(JSON.stringify(result,null,2));if(result.failed)process.exitCode=1;
 } catch {

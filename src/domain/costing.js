@@ -15,7 +15,7 @@ export function costLine(line, catalog) {
   if (!positive(unitPrice) || (price.baseUnit && price.baseUnit!==ingredient.baseUnit)) return fail('unpriced','Precio vigente inválido o incompatible');
   let quantity=new Decimal(line.quantity).times(UNIT[line.unit][1]);
   if (UNIT[line.unit]?.[0] !== ingredient.baseUnit) {
-    if (line.unit==='pz' && ingredient.baseUnit==='kg' && positive(line.gramsPerPiece) && line.conversionNote) quantity=new Decimal(line.quantity).times(line.gramsPerPiece).div(1000);
+    if (['pz','porcion'].includes(line.unit) && ingredient.baseUnit==='kg' && positive(line.gramsPerPiece) && line.conversionNote) quantity=new Decimal(line.quantity).times(line.gramsPerPiece).div(1000);
     else return fail('incompatible', `Unidad incompatible: catálogo en ${ingredient.baseUnit}`);
   }
   if (!new Decimal(line.yieldFactor ?? 1).eq(1) && !line.conversionNote) return fail('incompatible','Rendimiento sin confirmar');

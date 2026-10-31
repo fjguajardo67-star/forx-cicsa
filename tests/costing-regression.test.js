@@ -59,6 +59,8 @@ test.each([['g','100','kg','2'],['kg','0.1','kg','2'],['ml','250','l','5'],['l',
 });
 test('equivalencias explícitas y rendimiento; bloquea densidades, precios y cantidades inválidas',()=>{
   expect(costLine(line({unit:'pz',quantity:2,gramsPerPiece:50,conversionNote:'Pesado y confirmado'}),catalog()).amount).toBe('2');
+  expect(costLine(line({unit:'porcion',quantity:1,gramsPerPiece:50,conversionNote:'Porción pesada y confirmada'}),catalog()).amount).toBe('1');
+  expect(costLine(line({unit:'porcion',quantity:1}),catalog()).amount).toBeNull();
   expect(costLine(line({quantity:85,yieldFactor:'2.5',conversionNote:'Medición servido/seco'}),catalog()).amount).toBe('0.68');
   for(const bad of [{unit:'ml'},{unit:'caja'},{quantity:-1},{quantity:'NaN'},{yieldFactor:0},{yieldFactor:2},{unit:'pz',gramsPerPiece:-1,conversionNote:'No válido'}])expect(costLine(line(bad),catalog()).amount).toBeNull();
   expect(costLine(line(),catalog('kg','0')).amount).toBeNull();

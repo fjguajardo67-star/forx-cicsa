@@ -29,7 +29,8 @@ describe('vista previa de respaldo anterior: solo lectura',()=>{
     const source=preview().sources.local;
     const salad=source.rows.find(r=>r.collection==='grill');
     expect(salad).toMatchObject({status:'borrador',lines:[{quantity:'1',unit:'porcion'}],disposables:[{quantity:'1',unit:'pz'}]});
-    expect(salad.issues.map(i=>i.code)).toContain('unit');
+    expect(salad.issues.map(i=>i.code)).toContain('portion');
+    expect(salad.issues.map(i=>i.code)).not.toContain('unit');
     expect(source.rows.find(r=>r.deleted).issues.map(i=>i.code)).toContain('deleted');
     expect(source.deleted).toHaveLength(2);
   });

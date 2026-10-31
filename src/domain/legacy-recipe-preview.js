@@ -36,6 +36,7 @@ function recipePreview(input,index,collection,source,deleted,omitted,existing) {
     if (!line.quantity.trim() || !Number.isFinite(Number(line.quantity)) || Number(line.quantity)<=0 || Number(line.quantity)>1e9)
       add(row,'quantity',`${kind} ${i+1}: cantidad no válida; no se corregirá automáticamente.`);
     if (!Object.hasOwn(UNIT,line.unit)) add(row,'unit',`${kind} ${i+1} (${line.name || 'sin nombre'}): «${line.unit || 'sin unidad'}» necesita una equivalencia confirmada. No se inventarán gramos.`);
+    else if (line.unit==='porcion') add(row,'portion',`${kind} ${i+1} (${line.name || 'sin nombre'}): se conserva como porción pendiente; confirma gramos antes de vincular y costear.`);
   });
   if (collection==='menu' && !row.instructions.some(s=>s.trim())) add(row,'procedure','Sin procedimiento capturado.');
   if (r.procedimiento != null && (!Array.isArray(r.procedimiento) || r.procedimiento.some(s=>typeof s!=='string')))

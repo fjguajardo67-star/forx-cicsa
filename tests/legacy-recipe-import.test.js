@@ -10,14 +10,14 @@ import {ingredientInput,productInput,purchaseXml,file} from './fixtures/monthly.
 const sourceHash='a'.repeat(64),plan=(data,options={})=>planLegacyRecipeImport(JSON.stringify(data),{sourceHash,...options});
 async function setup(){const repository=new MemoryEntityRepository(),kitchen=new KitchenService(repository),pantry=new PantryService(repository);await pantry.initialize();await kitchen.initialize();return{repository,kitchen,pantry};}
 
-test('importación segura: cantidades por porción, duplicado equivalente, borradores, omisiones y unidades pendientes',()=>{
+test('importación segura: conserva porciones pendientes sin costear, duplicados, borradores y omisiones',()=>{
   const data=legacyBackup(),before=structuredClone(data),p=plan(data);
-  expect(p.summary).toMatchObject({total:10,ready:7,duplicates:1,excluded:1,pending:1});
+  expect(p.summary).toMatchObject({total:10,ready:8,duplicates:1,excluded:1,pending:0});
   const rows=p.entries.filter(e=>e.status==='ready').map(e=>e.recipe);
   expect(rows.find(r=>r.name==='Guisado de prueba')).toMatchObject({baseServings:'1',lines:[{quantity:'150',unit:'g',ingredientId:null}]});
   expect(rows.find(r=>r.name==='Sopes de prueba').status).toBe('draft');
   expect(rows.find(r=>r.name==='Receta omitida de prueba').omitted).toBe(true);
-  expect(p.entries.find(e=>e.name==='Ensalada de prueba').status).toBe('pending');
+  expect(rows.find(r=>r.name==='Ensalada de prueba')).toMatchObject({status:'draft',lines:[{quantity:'1',unit:'porcion',ingredientId:null}]});
   expect(rows.every(r=>r.salePrice===null&&r.productionCost==='0')).toBe(true);
   expect(JSON.stringify(rows)).not.toMatch(/precio_kg|98765|private-synthetic/);
   expect(data).toEqual(before);
@@ -25,9 +25,9 @@ test('importación segura: cantidades por porción, duplicado equivalente, borra
 test('no mezcla copias distintas ni recetas distintas con el mismo nombre',()=>{
   const data=legacyBackup();data.nube.recetas[0].ingredientes[0].cantidad=999;
   expect(()=>plan(data)).toThrow(/copias difieren/);
-  expect(plan(data,{source:'local'}).summary.ready).toBe(7);
+  expect(plan(data,{source:'local'}).summary.ready).toBe(8);
   data.local.recetas[2].ingredientes[0].cantidad=999;
-  expect(plan(data,{source:'local'}).entries.filter(e=>e.status==='pending')).toHaveLength(3);
+  expect(plan(data,{source:'local'}).entries.filter(e=>e.status==='pending')).toHaveLength(2);
 });
 test('la repetición es idempotente por nombre y no reemplaza contenido existente',async()=>{
   const {repository,kitchen}=await setup();

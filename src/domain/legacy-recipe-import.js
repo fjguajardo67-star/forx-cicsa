@@ -33,7 +33,7 @@ export function planLegacyRecipeImport(json,{existingRecipes=[],source,sourceHas
     }
     if(group[0]!==row){entries.push({...entry,status:'duplicate',duplicateOf:group[0].key,reason:'Mismo contenido culinario; diferencias solo de identidad o escritura.'});continue;}
     if(row.issues.some(i=>blockingIssues.has(i.code))){entries.push({...entry,status:'pending',reason:'Cantidad, unidad o estructura pendiente; no se importan recetas con renglones descartados.'});continue;}
-    const draft=row.status==='borrador'||row.issues.some(i=>['procedure','uniform_quantities'].includes(i.code));
+    const draft=row.status==='borrador'||row.issues.some(i=>['procedure','uniform_quantities','portion'].includes(i.code));
     const history=[`Recuperación FORX — respaldo SHA-256 ${sourceHash}; copia ${source}.`,
       `Referencia anterior: ${row.originalId||'sin ID'}; fecha: ${row.date||'sin fecha'}; respaldo: ${preview.generatedAt||'sin fecha'}.`,
       `Cantidades conservadas por porción. Comensales originales: ${row.originalServings||'no indicados'}; destino anterior: ${row.destinationServings||'no indicado'}.`,

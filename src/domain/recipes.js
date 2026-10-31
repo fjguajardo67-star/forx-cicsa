@@ -8,7 +8,10 @@ export const TYPES = Object.freeze([
   { id:'agua', label:'Agua', plural:'Aguas', prefix:'AG' },
   { id:'grill', label:'Grill Express', plural:'Grill Express', prefix:'GX', main:true }
 ]);
-export const UNIT = Object.freeze({ g:['kg','0.001'], kg:['kg','1'], ml:['l','0.001'], l:['l','1'], pz:['pz','1'] });
+// `porcion` preserves an unresolved legacy serving exactly as captured. It is
+// deliberately incompatible with catalog units until grams per portion and a
+// source note are confirmed; it must never acquire a price by name alone.
+export const UNIT = Object.freeze({ g:['kg','0.001'], kg:['kg','1'], ml:['l','0.001'], l:['l','1'], pz:['pz','1'], porcion:['porcion','1'] });
 export const norm = value => String(value ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/\s+/g,' ').trim();
 export const nameKey = value => encodeURIComponent(norm(value));
 export function number(value, label, { zero=false, max='1000000000' }={}) {
@@ -22,8 +25,9 @@ export function required(value, label, max=180) {
   return value.trim();
 }
 export function validateLine(input, index=0) {
-  const unit = String(input.unit ?? '').toLowerCase() === 'lt' ? 'l' : input.unit;
-  if (!Object.hasOwn(UNIT, unit)) throw new Error(`Renglón ${index+1}: selecciona g, kg, ml, l o pz.`);
+  const rawUnit=norm(input.unit).replace(/\s+/g,'');
+  const unit = rawUnit === 'lt' ? 'l' : rawUnit === 'porción' ? 'porcion' : rawUnit;
+  if (!Object.hasOwn(UNIT, unit)) throw new Error(`Renglón ${index+1}: selecciona g, kg, ml, l, pz o porción pendiente.`);
   return { id:input.id || crypto.randomUUID(), name:required(input.name, `Ingrediente ${index+1}`),
     quantity:number(input.quantity, `Cantidad ${index+1}`), unit,
     ingredientId:input.ingredientId ? required(input.ingredientId, 'Vínculo', 200) : null,
@@ -74,9 +78,9 @@ export function parseRecipeBatch(text) {
           continue;
         }
         if (section==='lines') {
-          const m=line.replace(/^[*•-]\s*/,'').match(/^(.+?):\s*(\d+(?:\.\d+)?)\s*(kg|g|ml|lt|l|pz)$/i);
+          const m=line.replace(/^[*•-]\s*/,'').match(/^(.+?):\s*(\d+(?:\.\d+)?)\s*(kg|g|ml|lt|l|pz|porci[oó]n)$/i);
           if (!m) throw new Error(`No se interpretó: ${line}. Usa Nombre: cantidad unidad.`);
-          r.lines.push({ name:m[1], quantity:m[2], unit:m[3].toLowerCase(), ingredientId:null });
+          r.lines.push({ name:m[1], quantity:m[2], unit:norm(m[3]), ingredientId:null });
         } else if (section==='instructions') r.instructions += `${r.instructions ? '\n' : ''}${line}`;
         else throw new Error(`Campo no reconocido: ${line}`);
       }
